@@ -48,12 +48,12 @@ func (r Region) setParam(v url.Values) {
 type Year int64
 
 func (y Year) setParam(v url.Values) {
-	v.Set("year", strconv.FormatInt(int64(y)))
+	v.Set("year", strconv.FormatInt(int64(y), 10))
 }
 
 // PrimaryReleaseYear filters the results by the specified year
 type PrimaryReleaseYear int64
 
 func (p PrimaryReleaseYear) setParam(v url.Values) {
-	v.Set("primary_release_year", strconv.FormatInt(int64(p)))
+	v.Set("primary_release_year", strconv.FormatInt(int64(p), 10))
 }
