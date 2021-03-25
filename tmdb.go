@@ -1,4 +1,5 @@
-package tmdb
+// Package tmdb is a simple interface to the themoviedb.org database
+package tmdb // import "vimagination.zapto.org/tmdb"
 
 import (
 	"encoding/json"
