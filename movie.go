@@ -38,7 +38,7 @@ type MovieDetails struct {
 	Revenue         int64  `json:"revenue"`
 	Runtime         *int64 `json:"runtime"`
 	SpokenLanguages []struct {
-		Language string `json:"iso_649_1"`
+		Language string `json:"iso_639_1"`
 		Name     string `json:"name"`
 	} `json:"spoken_languages"`
 	Status      string  `json:"status"`
