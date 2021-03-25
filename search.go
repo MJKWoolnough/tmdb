@@ -21,7 +21,7 @@ type SearchTV struct {
 		VoteCount        int64    `json:"vote_count"`
 		Name             string   `json:"name"`
 		OriginalName     string   `json:"original_name"`
-	}
+	} `json:"results"`
 	TotalResults uint64 `json:"total_results"`
 	TotalPages   uint64 `json:"total_pages"`
 }
@@ -53,7 +53,7 @@ type SearchMovie struct {
 		VoteCount        int64   `json:"vote_count"`
 		Video            bool    `json:"video"`
 		VoteAverage      float64 `json:"vote_average"`
-	}
+	} `json:"results"`
 	TotalResults uint64 `json:"total_results"`
 	TotalPages   uint64 `json:"total_pages"`
 }
