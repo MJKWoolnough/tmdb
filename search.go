@@ -33,5 +33,36 @@ func (t *TMDB) SearchTV(name string, params ...option) (*SearchTV, error) {
 		return nil, err
 	}
 	return s, nil
+}
 
+// SearchMovie is the results returned from a Movie search
+type SearchMovie struct {
+	Page    uint16 `json:"page"`
+	Results []struct {
+		PosterPath       *string `json:"poster_path"`
+		Adult            bool    `json:"adult"`
+		Overview         string  `json:"overview"`
+		ReleaseDate      string  `json:"release_date"`
+		GenreIDs         []int64 `json:"genre_ids"`
+		ID               int64   `json:"id"`
+		OriginalTitle    string  `json:"original_title"`
+		OriginalLanguage string  `json:"original_language"`
+		Title            string  `json:"title"`
+		BackdropPath     string  `json:"backdrop_path"`
+		Popularity       float64 `json:"popularity"`
+		VoteCount        int64   `json:"vote_count"`
+		Video            bool    `json:"video"`
+		VoteAverage      float64 `json:"vote_average"`
+	}
+	TotalResults uint64 `json:"total_results"`
+	TotalPages   uint64 `json:"total_pages"`
+}
+
+// SearchMovie searches the TMDB Movie database for the name given
+func (t *TMDB) SearchMovie(name string, params ...option) (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get("/3/search/movie", url.Values{"query": []string{name}}, params, s); err != nil {
+		return nil, err
+	}
+	return s, nil
 }
