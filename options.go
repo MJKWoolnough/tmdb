@@ -57,3 +57,10 @@ type PrimaryReleaseYear int64
 func (p PrimaryReleaseYear) setParam(v url.Values) {
 	v.Set("primary_release_year", strconv.FormatInt(int64(p), 10))
 }
+
+// Country filters a list by country
+type Country string
+
+func (c Country) setParam(v url.Values) {
+	v.Set("country", string(c))
+}
