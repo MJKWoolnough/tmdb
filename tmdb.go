@@ -1,6 +1,7 @@
 package tmdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -26,13 +27,19 @@ func New(v4key string) *TMDB {
 	}
 }
 
-func (t *TMDB) get(path string, query url.Values) (*http.Response, error) {
+func (t *TMDB) get(path string, query url.Values, result interface{}) error {
 	url := defaultURL
 	url.Path = path
 	url.RawQuery = query.Encode()
 	fmt.Println(url)
-	return http.DefaultClient.Do(&http.Request{
+	r, err := http.DefaultClient.Do(&http.Request{
 		URL:    url,
 		Header: t.headers,
 	})
+	if err != nil {
+		return err
+	}
+	err = json.NewDecoder(r.Body).Decode(result)
+	r.Body.Close()
+	return err
 }
