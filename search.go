@@ -27,9 +27,9 @@ type SearchTV struct {
 }
 
 // SearchTV searches the TMDB TV show database for the name given
-func (t *TMDB) SearchTV(name string) (*SearchTV, error) {
+func (t *TMDB) SearchTV(name string, params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
-	if err := t.get("/3/search/tv", url.Values{"query": []string{name}}, s); err != nil {
+	if err := t.get("/3/search/tv", url.Values{"query": []string{name}}, params, s); err != nil {
 		return nil, err
 	}
 	return s, nil

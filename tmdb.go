@@ -3,7 +3,6 @@ package tmdb // import "vimagination.zapto.org/tmdb"
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -28,11 +27,13 @@ func New(v4key string) *TMDB {
 	}
 }
 
-func (t *TMDB) get(path string, query url.Values, result interface{}) error {
+func (t *TMDB) get(path string, query url.Values, params []option, result interface{}) error {
+	for _, param := range params {
+		param.setParam(query)
+	}
 	url := defaultURL
 	url.Path = path
 	url.RawQuery = query.Encode()
-	fmt.Println(url)
 	r, err := http.DefaultClient.Do(&http.Request{
 		URL:    url,
 		Header: t.headers,
