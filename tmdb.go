@@ -27,6 +27,16 @@ func New(v4key string) *TMDB {
 	}
 }
 
+// Error represents an error repsonse (401, 404) from the API
+type Error struct {
+	Message string `json:"status_message"`
+	Code    int64  `json:"status_code"`
+}
+
+func (e *Error) Error() string {
+	return e.Message
+}
+
 func (t *TMDB) get(result interface{}, path string, query url.Values, params ...option) error {
 	for _, param := range params {
 		param.setParam(query)
@@ -40,6 +50,15 @@ func (t *TMDB) get(result interface{}, path string, query url.Values, params ...
 	})
 	if err != nil {
 		return err
+	}
+	if r.StatusCode == http.StatusUnauthorized || r.StatusCode == http.StatusNotFound {
+		e := new(Error)
+		err = json.NewDecoder(r.Body).Decode(result)
+		r.Body.Close()
+		if err != nil {
+			return err
+		}
+		return e
 	}
 	err = json.NewDecoder(r.Body).Decode(result)
 	r.Body.Close()
