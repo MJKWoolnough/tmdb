@@ -4,6 +4,27 @@ import (
 	"net/url"
 )
 
+// SearchCompany is the results returned from a Company search
+type SearchCompany struct {
+	Page    uint16 `json:"page"`
+	Results []struct {
+		ID       int64   `json:"id"`
+		LogoPath *string `json:"logo_path"`
+		Name     string  `json:"name"`
+	} `json:"results"`
+	TotalResults uint64 `json:"total_results"`
+	TotalPages   uint64 `json:"total_pages"`
+}
+
+// SearchCompany searches the TMDB Movie database for the name given
+func (t *TMDB) SearchCompany(query string, params ...option) (*SearchCompany, error) {
+	s := new(SearchCompany)
+	if err := t.get(s, "/3/search/company", url.Values{"query": []string{query}}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
 // SearchMovie is the results returned from a Movie search
 type SearchMovie struct {
 	Page    uint16 `json:"page"`
