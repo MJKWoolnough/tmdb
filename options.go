@@ -64,3 +64,17 @@ type Country string
 func (c Country) setParam(v url.Values) {
 	v.Set("country", string(c))
 }
+
+// StartDate limits a search to a starting date
+type StartDate string
+
+func (s StartDate) setParam(v url.Values) {
+	v.Set("start_date", string(s))
+}
+
+// EndDate limits a search to a end date
+type EndDate string
+
+func (e EndDate) setParam(v url.Values) {
+	v.Set("end_date", string(e))
+}
