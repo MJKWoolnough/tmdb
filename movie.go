@@ -52,7 +52,7 @@ type MovieDetails struct {
 // MovieDetails retrieves movie information based on the ID specified
 func (t *TMDB) MovieDetails(id int64, params ...option) (*MovieDetails, error) {
 	m := new(MovieDetails)
-	if err := t.get(fmt.Sprintf("/3/movie/%d", id), url.Values{}, params, m); err != nil {
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return m, nil
@@ -71,7 +71,7 @@ type MovieAlternativeTitles struct {
 // MovieAlternativeTitles returns all of the alternative titles for a movie
 func (t *TMDB) MovieAlternativeTitles(id int64, params ...option) (*MovieAlternativeTitles, error) {
 	m := new(MovieAlternativeTitles)
-	if err := t.get(fmt.Sprintf("/3/movie/%d/alternative_titles", id), url.Values{}, params, m); err != nil {
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/alternative_titles", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return m, nil

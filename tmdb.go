@@ -27,7 +27,7 @@ func New(v4key string) *TMDB {
 	}
 }
 
-func (t *TMDB) get(path string, query url.Values, params []option, result interface{}) error {
+func (t *TMDB) get(result interface{}, path string, query url.Values, params ...option) error {
 	for _, param := range params {
 		param.setParam(query)
 	}

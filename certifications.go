@@ -17,7 +17,7 @@ type Certifications struct {
 // CertificationMovie retrieves all movie certifications
 func (t *TMDB) CertificationMovie() (*Certification, error) {
 	c := new(Certification)
-	if err := t.get("/3/certification/movie/list", url.Values{}, []option{}, c); err != nil {
+	if err := t.get(c, "/3/certification/movie/list", url.Values{}); err != nil {
 		return nil, err
 	}
 	return c, nil
@@ -26,7 +26,7 @@ func (t *TMDB) CertificationMovie() (*Certification, error) {
 // CertificationTV retrieves all tv certifications
 func (t *TMDB) CertificationTV() (*Certification, error) {
 	c := new(Certification)
-	if err := t.get("/3/certification/tv/list", url.Values{}, []option{}, c); err != nil {
+	if err := t.get(c, "/3/certification/tv/list", url.Values{}); err != nil {
 		return nil, err
 	}
 	return c, nil
