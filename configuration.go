@@ -39,3 +39,18 @@ func (t *TMDB) Countries() (*Countries, error) {
 	}
 	return c, nil
 }
+
+// Jobs represents the list of jobs/departments
+type Jobs []struct {
+	Department string   `json:"department"`
+	Jobs       []string `json:"jobs"`
+}
+
+// Jobs retrieves the list of jobs/departments
+func (t *TMDB) Jobs() (*Jobs, error) {
+	j := new(Jobs)
+	if err := t.get(j, "/3/jobs", url.Values{}); err != nil {
+		return nil, err
+	}
+	return j, nil
+}
