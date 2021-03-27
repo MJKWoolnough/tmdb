@@ -54,3 +54,19 @@ func (t *TMDB) Jobs() (*Jobs, error) {
 	}
 	return j, nil
 }
+
+// Languages represents the list of languages
+type Languages []struct {
+	Language    string `json:"iso_639_1"`
+	EnglishName string `json:"english_name"`
+	Name        string `json:"name"`
+}
+
+// Languages retrieves the list of languages
+func (t *TMDB) Languages() (*Languages, error) {
+	l := new(Languages)
+	if err := t.get(l, "/3/languages", url.Values{}); err != nil {
+		return nil, err
+	}
+	return l, nil
+}
