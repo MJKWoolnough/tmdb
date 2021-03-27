@@ -63,3 +63,28 @@ func (t *TMDB) CollectionImages(id int64, params ...option) (*CollectionImages, 
 	}
 	return c, nil
 }
+
+// CollectionTranslations represents collection translations data
+type CollectionTranslations struct {
+	ID           int64 `json:"id"`
+	Translations []struct {
+		Country     string `json:"iso_3166_1"`
+		Language    string `json:"iso_649_1"`
+		Name        string `json:"name"`
+		EnglishName string `json:"english_name"`
+		Data        struct {
+			Title    string `json:"title"`
+			Overview string `json:"overview"`
+			Homepage string `json:"homepage"`
+		} `json:"data"`
+	} `json:"translations"`
+}
+
+// CollectionTranslations gets the list translations for a collection by ID
+func (t *TMDB) CollectionTranslations(id int64, params ...option) (*CollectionTranslations, error) {
+	c := new(CollectionTranslations)
+	if err := t.get(c, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
