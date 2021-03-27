@@ -43,3 +43,27 @@ func (t *TMDB) CompanyAlternativeNames(id int64) (*CompanyAlternativeNames, erro
 	}
 	return c, nil
 }
+
+// CompanyImages represents a list of logos for a company
+type CompanyImages struct {
+	ID    int64 `json:"id"`
+	Logos []struct {
+		AspectRatio float64 `json:"aspect_ratio"`
+		FilePath    string  `json:"file_path"`
+		Height      uint64  `json:"height"`
+		ID          int64   `json:"id"`
+		FileType    string  `json:"file_type"`
+		VoteAverage float64 `json:"vote_average"`
+		VoteCount   int64   `json:"vote_count"`
+		Width       int64   `json:"width"`
+	} `json:"logos"`
+}
+
+// CompanyImages retrieves the logos for a company
+func (t *TMDB) CompanyImages(id int64) (*CompanyImages, error) {
+	c := new(CompanyImages)
+	if err := t.get(c, fmt.Sprintf("/3/company/%d/images", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
