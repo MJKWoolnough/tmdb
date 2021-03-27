@@ -25,3 +25,21 @@ func (t *TMDB) CompanyDetails(id int64) (*CompanyDetails, error) {
 	}
 	return c, nil
 }
+
+// CompanyAlternativeNames represents a list of alternative name for a company
+type CompanyAlternativeNames struct {
+	ID      int64 `json:"id"`
+	Results []struct {
+		Name string `json:"name"`
+		Type string `json:"type"`
+	} `json:"results"`
+}
+
+// CompanyAlternativeNames retrieves the alternative name for a company
+func (t *TMDB) CompanyAlternativeNames(id int64) (*CompanyAlternativeNames, error) {
+	c := new(CompanyAlternativeNames)
+	if err := t.get(c, fmt.Sprintf("/3/company/%d/alternative_names", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
