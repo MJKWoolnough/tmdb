@@ -34,7 +34,7 @@ type Countries []struct {
 // Countries retrieves the list of ISO3166-1 country tags
 func (t *TMDB) Countries() (*Countries, error) {
 	c := new(Countries)
-	if err := t.get(c, "/3/countries", url.Values{}); err != nil {
+	if err := t.get(c, "/3/configuration/countries", url.Values{}); err != nil {
 		return nil, err
 	}
 	return c, nil
@@ -49,7 +49,7 @@ type Jobs []struct {
 // Jobs retrieves the list of jobs/departments
 func (t *TMDB) Jobs() (*Jobs, error) {
 	j := new(Jobs)
-	if err := t.get(j, "/3/jobs", url.Values{}); err != nil {
+	if err := t.get(j, "/3/configuration/jobs", url.Values{}); err != nil {
 		return nil, err
 	}
 	return j, nil
@@ -65,7 +65,7 @@ type Languages []struct {
 // Languages retrieves the list of languages
 func (t *TMDB) Languages() (*Languages, error) {
 	l := new(Languages)
-	if err := t.get(l, "/3/languages", url.Values{}); err != nil {
+	if err := t.get(l, "/3/configurationslanguages", url.Values{}); err != nil {
 		return nil, err
 	}
 	return l, nil
