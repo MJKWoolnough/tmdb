@@ -16,3 +16,12 @@ func (t *TMDB) MovieGenres(params ...option) (Genres, error) {
 	}
 	return *g, nil
 }
+
+// TVGenres retrieves the official genres for movies
+func (t *TMDB) TVGenres(params ...option) (Genres, error) {
+	g := new(Genres)
+	if err := t.get(g, "/3/genre/tv/list", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return *g, nil
+}
