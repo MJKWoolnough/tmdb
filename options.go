@@ -225,3 +225,108 @@ type WatchRegion string
 func (w WatchRegion) setParam(v url.Values) {
 	v.Set("watch_region", string(w))
 }
+
+// VoteCountGTE filters by only allowing results with a vote count greater than (or equal to) that specified
+type VoteCountGTE float64
+
+func (vc VoteCountGTE) setParam(v url.Values) {
+	v.Set("vote_count.gte", strconv.FormatFloat(float64(vc), 'f', 0, 64))
+}
+
+// VoteCountLTE filters by only allowing results with a vote count less than (or equal to) that specified
+type VoteCountLTE float64
+
+func (vc VoteCountLTE) setParam(v url.Values) {
+	v.Set("vote_count.lte", strconv.FormatFloat(float64(vc), 'f', 0, 64))
+}
+
+// CertificationCountry is used in conjustion fir the Certification filter to specify a country with a valid certificate
+type CertificationCountry string
+
+func (c CertificationCountry) setParam(v url.Values) {
+	v.Set("certification_country", string(c))
+}
+
+// CertificationFilter filters results with a vald certification from the CertificationCountry value
+type CertificationFilter string
+
+func (c CertificationFilter) setParam(v url.Values) {
+	v.Set("certification", string(c))
+}
+
+// CertificationLTE filters results to only include those with a certification less than (or equal to) that specified
+type CertificationLTE string
+
+func (c CertificationLTE) setParam(v url.Values) {
+	v.Set("certification.lte", string(c))
+}
+
+// CertificationGTE filters results to only include those with a certification greater than (or equal to) that specified
+type CertificationGTE string
+
+func (c CertificationGTE) setParam(v url.Values) {
+	v.Set("certification.gte", string(c))
+}
+
+// IncludeVideo is a filter to include/exclude videos
+type IncludeVideo bool
+
+func (i IncludeVideo) setParam(v url.Values) {
+	v.Set("include_video", strconv.FormatBool(bool(i)))
+}
+
+// PrimaryReleaseDateGTE filters results to only include those with a primary release date greater than (or equal to) that specified
+type PrimaryReleaseDateGTE string
+
+func (p PrimaryReleaseDateGTE) setParam(v url.Values) {
+	v.Set("primary_release_date.gte", string(p))
+}
+
+// PrimaryReleaseDateLTE filters results to only include those with a primary release date less than (or equal to) that specified
+type PrimaryReleaseDateLTE string
+
+func (p PrimaryReleaseDateLTE) setParam(v url.Values) {
+	v.Set("primary_release_date.lte", string(p))
+}
+
+// ReleaseDateGTE filters results to only include those with a release date greater than (or equal to) that specified
+type ReleaseDateGTE string
+
+func (r ReleaseDateGTE) setParam(v url.Values) {
+	v.Set("release_date.gte", string(r))
+}
+
+// ReleaseDateLTE filters results to only include those with a release date less than (or equal to) that specified
+type ReleaseDateLTE string
+
+func (r ReleaseDateLTE) setParam(v url.Values) {
+	v.Set("release_date.lte", string(r))
+}
+
+// WithReleaseType filters results with the specified list type
+type WithReleaseType int64
+
+func (w WithReleaseType) setParam(v url.Values) {
+	v.Set("with_release_type", strconv.FormatInt(int64(w), 10))
+}
+
+// WithCast specifies a comma seperated list of person IDs, any of which must be included in each result
+type WithCast string
+
+func (w WithCast) setParam(v url.Values) {
+	v.Set("with_cast", string(w))
+}
+
+// WithCrew specifies a comma seperated list of person IDs, any of which must be included in each result
+type WithCrew string
+
+func (w WithCrew) setParam(v url.Values) {
+	v.Set("with_crew", string(w))
+}
+
+// WithPeople specifies a comma seperated list of person IDs, any of which must be included in each result
+type WithPeople string
+
+func (w WithPeople) setParam(v url.Values) {
+	v.Set("with_people", string(w))
+}
