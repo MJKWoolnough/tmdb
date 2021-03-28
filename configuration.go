@@ -82,3 +82,18 @@ func (t *TMDB) PrimaryTranslations() (*PrimaryTranslations, error) {
 	}
 	return p, nil
 }
+
+// Timezones represents the list of timezones used by TMDB
+type Timezones []struct {
+	Country string   `json:"iso_3166_1"`
+	Zones   []string `json:"zones"`
+}
+
+// Timezones retrieves the list of timezones
+func (t *TMDB) Timezones() (*Timezones, error) {
+	tz := new(Timezones)
+	if err := t.get(tz, "/3/configuration/timezones", url.Values{}); err != nil {
+		return nil, err
+	}
+	return tz, nil
+}
