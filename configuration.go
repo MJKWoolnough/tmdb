@@ -70,3 +70,15 @@ func (t *TMDB) Languages() (*Languages, error) {
 	}
 	return l, nil
 }
+
+// PrimaryTranslations represents the list of primary translations
+type PrimaryTranslations []string
+
+// PrimaryTranslations retrieves the list of primary translations
+func (t *TMDB) PrimaryTranslations() (*PrimaryTranslations, error) {
+	p := new(PrimaryTranslations)
+	if err := t.get(p, "/3/configuration/primary_translations", url.Values{}); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
