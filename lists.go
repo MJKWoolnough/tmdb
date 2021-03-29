@@ -36,7 +36,7 @@ type ListItemPresent struct {
 // ListItemPresent checks whether a list contains a movie
 func (t *TMDB) ListItemPresent(listID string, movieID int64) (*ListItemPresent, error) {
 	l := new(ListItemPresent)
-	if err := t.get(l, "/3/list/"+listID+"/item_status", url.Values{"movie_id": []string{strconv.FormatInt(movieID, 10)}}, params...); err != nil {
+	if err := t.get(l, "/3/list/"+listID+"/item_status", url.Values{"movie_id": []string{strconv.FormatInt(movieID, 10)}}); err != nil {
 		return nil, err
 	}
 	return l, nil
