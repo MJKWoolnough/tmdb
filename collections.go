@@ -55,7 +55,7 @@ type CollectionTranslations struct {
 	ID           int64 `json:"id"`
 	Translations []struct {
 		Country     string `json:"iso_3166_1"`
-		Language    string `json:"iso_649_1"`
+		Language    string `json:"iso_639_1"`
 		Name        string `json:"name"`
 		EnglishName string `json:"english_name"`
 		Data        struct {
