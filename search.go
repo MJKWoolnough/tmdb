@@ -38,7 +38,7 @@ type SearchMovie struct {
 		OriginalTitle    string  `json:"original_title"`
 		OriginalLanguage string  `json:"original_language"`
 		Title            string  `json:"title"`
-		BackdropPath     string  `json:"backdrop_path"`
+		BackdropPath     *string `json:"backdrop_path"`
 		Popularity       float64 `json:"popularity"`
 		VoteCount        int64   `json:"vote_count"`
 		Video            bool    `json:"video"`
