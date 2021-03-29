@@ -2,6 +2,7 @@ package tmdb
 
 import (
 	"net/url"
+	"strconv"
 )
 
 // ListDetails is the details of a list
@@ -21,6 +22,21 @@ type ListDetails struct {
 func (t *TMDB) ListDetails(id string, params ...option) (*ListDetails, error) {
 	l := new(ListDetails)
 	if err := t.get(l, "/3/list/"+id, url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return l, nil
+}
+
+// ListItemPresent states whether a move exists within a list
+type ListItemPresent struct {
+	ID          string `json:"id"`
+	ItemPresent bool   `json:"item_present"`
+}
+
+// ListItemPresent checks whether a list contains a movie
+func (t *TMDB) ListItemPresent(listID string, movieID int64) (*ListItemPresent, error) {
+	l := new(ListItemPresent)
+	if err := t.get(l, "/3/list/"+listID+"/item_status", url.Values{"movie_id": []string{strconv.FormatInt(movieID, 10)}}, params...); err != nil {
 		return nil, err
 	}
 	return l, nil
