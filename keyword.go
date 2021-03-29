@@ -21,7 +21,7 @@ func (t *TMDB) Keyword(id int64) (*Keyword, error) {
 }
 
 // KeywordMovies retrieves a list of movies that share the keyword given
-func (t *TMDB) KeywordMovies(id int64, params ...options) (*SearchMovie, error) {
+func (t *TMDB) KeywordMovies(id int64, params ...option) (*SearchMovie, error) {
 	s := new(SearchMovie)
 	if err := t.get(s, fmt.Sprintf("/3/keyword/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
