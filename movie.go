@@ -176,3 +176,17 @@ func (t *TMDB) MovieImages(id int64, params ...option) (*MovieImages, error) {
 	}
 	return m, nil
 }
+
+type MovieKeywords struct {
+	ID       int64     `json:"id"`
+	Keywords []Keyword `json:"keywords"`
+}
+
+// MovieKeywords retrieves all of the keywords for a movie
+func (t *TMDB) MovieKeywords(id int64) (*MovieKeywords, error) {
+	m := new(MovieKeywords)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/keywords", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
