@@ -76,3 +76,25 @@ func (t *TMDB) MovieAlternativeTitles(id int64, params ...option) (*MovieAlterna
 	}
 	return m, nil
 }
+
+// MovieChanges lists changes to a movie entry
+type MovieChanges []struct {
+	Key   string `json:"key"`
+	Items []struct {
+		ID            string `json:"id"`
+		Action        `json:"action"`
+		Time          string `json:"time"`
+		Language      string `json:"iso_639_1"`
+		Value         string `json:"value"`
+		OriginalValue strign `json:"original_value"`
+	}
+}
+
+// MovieChanges returns changes to a movie entry
+func (t *TMDB) MovieChanges(id int64, params ...option) (*MovieChanges, error) {
+	m := new(MovieChanges)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/changes", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
