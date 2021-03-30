@@ -98,3 +98,47 @@ func (t *TMDB) MovieChanges(id int64, params ...option) (*MovieChanges, error) {
 	}
 	return m, nil
 }
+
+// CreditShared represents the shared information for crediting either a cast or crew member
+type CreditShared struct {
+	Adult              bool    `json:"adult"`
+	Gender             *int64  `json:"gender"`
+	ID                 int64   `json:"id"`
+	KnownForDepartment string  `json:"known_for_department"`
+	Name               string  `json:"name"`
+	OriginalName       string  `json:"original_name"`
+	Popularity         float64 `json:"popularity"`
+	ProfilePath        *string `json:"profile_path"`
+	CreditID           int64   `json:"credit_id"`
+}
+
+// CastCredit represents the credit information for a cast member
+type CastCredit struct {
+	CreditShared
+	Character string `json:"character"`
+	CastID    string `json:"cast_id"`
+	Order     int64  `json:"order"`
+}
+
+// CrewCredit represents the credit information for a crew memeber
+type CrewCredit struct {
+	CreditShared
+	Department string `json:"department"`
+	Job        string `json:"job"`
+}
+
+// MovieCredits contains all of the credits for a movie
+type MovieCredits struct {
+	ID   int64
+	Cast []CastCredit `json:"cast"`
+	Crew []CrewCredit `json:"crew"`
+}
+
+// MovieCredits retrieves all of the credits for a movie
+func (t *TMDB) MovieCredits(id int64, params ...option) (*MovieCredits, error) {
+	m := new(MovieCredits)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/credits", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
