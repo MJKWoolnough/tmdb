@@ -82,11 +82,11 @@ type MovieChanges []struct {
 	Key   string `json:"key"`
 	Items []struct {
 		ID            string `json:"id"`
-		Action        `json:"action"`
+		Action        string `json:"action"`
 		Time          string `json:"time"`
 		Language      string `json:"iso_639_1"`
 		Value         string `json:"value"`
-		OriginalValue strign `json:"original_value"`
+		OriginalValue string `json:"original_value"`
 	}
 }
 
