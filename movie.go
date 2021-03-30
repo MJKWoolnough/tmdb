@@ -153,9 +153,25 @@ type MovieExternalIDs struct {
 }
 
 // MovieExternalIDs retrieves all known external IDs for a movie
-func (t *TMDB) MovieExternalIDs(id int64) (*MovieCredits, error) {
-	m := new(MovieCredits)
+func (t *TMDB) MovieExternalIDs(id int64) (*MovieExternalIDs, error) {
+	m := new(MovieExternalIDs)
 	if err := t.get(m, fmt.Sprintf("/3/movie/%d/external_ids", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// MovieImages contains all linked images for a movie
+type MovieImages struct {
+	ID        int64   `json:"id"`
+	Backdrops []Image `json:"backdrops"`
+	Posters   []Image `json:"posters"`
+}
+
+// MovieImages retrieves all linked images for a movie
+func (t *TMDB) MovieImages(id int64, params ...option) (*MovieImages, error) {
+	m := new(MovieImages)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return m, nil
