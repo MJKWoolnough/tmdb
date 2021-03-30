@@ -142,3 +142,21 @@ func (t *TMDB) MovieCredits(id int64, params ...option) (*MovieCredits, error) {
 	}
 	return m, nil
 }
+
+// MovieExternalIDs contains all known external IDs for a movie
+type MovieExternalIDs struct {
+	IMDB      *string `json:"imdb_id"`
+	Facebook  *string `json:"facebook_id"`
+	Instagram *string `json:"instagram_id"`
+	Twitter   *string `json:"twitter_id"`
+	ID        int64   `json:"id"`
+}
+
+// MovieExternalIDs retrieves all known external IDs for a movie
+func (t *TMDB) MovieExternalIDs(id int64) (*MovieCredits, error) {
+	m := new(MovieCredits)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/external_ids", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
