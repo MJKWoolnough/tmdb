@@ -13,3 +13,12 @@ func (t *TMDB) NetworkDetails(id int64) (*CompanyDetails, error) {
 	}
 	return c, nil
 }
+
+// NetworkAlternativeNames gets the alternative names of a network
+func (t *TMDB) NetworkAlternativeNames(id int64) (*CompanyAlternativeNames, error) {
+	c := new(CompanyAlternativeNames)
+	if err := t.get(c, fmt.Sprintf("/3/network/%d/alternative_names", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
