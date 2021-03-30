@@ -46,17 +46,8 @@ func (t *TMDB) CompanyAlternativeNames(id int64) (*CompanyAlternativeNames, erro
 
 // CompanyImages represents a list of logos for a company
 type CompanyImages struct {
-	ID    int64 `json:"id"`
-	Logos []struct {
-		AspectRatio float64 `json:"aspect_ratio"`
-		FilePath    string  `json:"file_path"`
-		Height      uint64  `json:"height"`
-		ID          int64   `json:"id"`
-		FileType    string  `json:"file_type"`
-		VoteAverage float64 `json:"vote_average"`
-		VoteCount   int64   `json:"vote_count"`
-		Width       int64   `json:"width"`
-	} `json:"logos"`
+	ID    int64   `json:"id"`
+	Logos []Image `json:"logos"`
 }
 
 // CompanyImages retrieves the logos for a company

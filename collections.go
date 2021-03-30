@@ -23,8 +23,8 @@ func (t *TMDB) CollectionDetails(id int64, params ...option) (*CollectionDetails
 	return c, nil
 }
 
-// CollectionImage stores the data of a single image
-type CollectionImage struct {
+// Image stores the data of a single image
+type Image struct {
 	AspectRatio float64 `json:"aspect_ratio"`
 	FilePath    string  `json:"file_path"`
 	Height      uint64  `json:"height"`
@@ -36,9 +36,9 @@ type CollectionImage struct {
 
 // CollectionImages stores the images details for a collection
 type CollectionImages struct {
-	ID        int64           `json:"id"`
-	Backdrops CollectionImage `json:"backdrops"`
-	Posters   CollectionImage `json:"posters"`
+	ID        int64 `json:"id"`
+	Backdrops Image `json:"backdrops"`
+	Posters   Image `json:"posters"`
 }
 
 // CollectionImages retrieves collection images details by id
