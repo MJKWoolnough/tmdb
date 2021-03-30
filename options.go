@@ -330,3 +330,10 @@ type WithPeople string
 func (w WithPeople) setParam(v url.Values) {
 	v.Set("with_people", string(w))
 }
+
+// IncludeImageLanguage determines whether an the language of an image is returned with the image data
+type IncludeImageLanguage string
+
+func (i IncludeImageLanguage) setParam(v url.Values) {
+	v.Set("include_image_language", string(i))
+}
