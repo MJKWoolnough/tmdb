@@ -22,3 +22,12 @@ func (t *TMDB) NetworkAlternativeNames(id int64) (*CompanyAlternativeNames, erro
 	}
 	return c, nil
 }
+
+// NetworkImages retrieves the logos for a network
+func (t *TMDB) NetworkImages(id int64) (*CompanyImages, error) {
+	c := new(CompanyImages)
+	if err := t.get(c, fmt.Sprintf("/3/network/%d/images", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
