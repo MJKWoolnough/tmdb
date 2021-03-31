@@ -319,3 +319,33 @@ func (t *TMDB) MovieVideos(id int64, params ...option) (*MovieVideos, error) {
 	}
 	return m, nil
 }
+
+// WatchProviderData contains information about the provider of a video service
+type WatchProviderData struct {
+	DisplayPriority int64  `json:"display_priority"`
+	LogoPath        string `json:"logo_path"`
+	ProviderID      int64  `json:"provider_id"`
+	ProviderName    string `json:"provider_name"`
+}
+
+// WatchProviders contains all of the information about where and how to watch a movie
+type WatchProviders struct {
+	ID      int64 `json:"id"`
+	Results struct {
+		AR, AT, AU, BE, BR, CA, CH, CL, CO, CZ, DE, DK, EC, EE, ES, FI, FR, GB, GR, HU, ID, IE, IN, IT, JP, KR, LT, LV, MX, MY, NL, NO, NZ, PE, PH, PL, PT, RO, RU, SE, SG, TH, TR, US, VE, ZA struct {
+			Link     string            `json:"link"`
+			Flatrate WatchProviderData `json:"flatrate"`
+			Rent     WatchProviderData `json:"rent"`
+			But      WatchProviderData `json:"buy"`
+		}
+	} `json:"results"`
+}
+
+// MovieWatchProviders retrieves all of the ways to watch a movie
+func (t *TMDB) MovieWatchProviders(id int64) (*WatchProviders, error) {
+	m := new(WatchProviders)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/watch/providers", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
