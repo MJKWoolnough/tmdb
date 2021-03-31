@@ -248,3 +248,32 @@ func (t *TMDB) MovieReleaseDates(id int64) (*MovieReleaseDates, error) {
 	}
 	return m, nil
 }
+
+// MovieReviews contains user reviews for a movie
+type MovieReviews struct {
+	ID int64 `json:"id"`
+	Search
+	Results []struct {
+		Author        string `json:"author"`
+		AuthorDetails struct {
+			Name       string  `json:"name"`
+			Username   string  `json:"username"`
+			AvatarPath *string `json:"avatar_path"`
+			Rating     *int64  `json:"rating"`
+		} `json:"author_details"`
+		Content   string `json:"content"`
+		CreatedAt string `json:"created_at"`
+		ID        string `json:"id"`
+		UpdatedAt string `json:"updated_at"`
+		URL       string `json:"url"`
+	} `json:"results"`
+}
+
+// MovieReviews returns a list of reviews for the specified movie
+func (t *TMDB) MovieReviews(id int64, params ...option) (*MovieReviews, error) {
+	m := new(MovieReviews)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/reviews", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
