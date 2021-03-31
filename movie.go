@@ -286,3 +286,12 @@ func (t *TMDB) MovieSimilar(id int64, params ...option) (*SearchMovie, error) {
 	}
 	return s, nil
 }
+
+// MovieTranslations retrieves all of the translations for a movie
+func (t *TMDB) MovieTranslations(id int64) (*Translations, error) {
+	t := new(Translations)
+	if err := t.get(t, fmt.Sprintf("/3/movie/%d/translations", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return t, nil
+}
