@@ -50,8 +50,8 @@ func (t *TMDB) CollectionImages(id int64, params ...option) (*CollectionImages, 
 	return c, nil
 }
 
-// CollectionTranslations represents collection translations data
-type CollectionTranslations struct {
+// Translations represents collection translations data
+type Translations struct {
 	ID           int64 `json:"id"`
 	Translations []struct {
 		Country     string `json:"iso_3166_1"`
@@ -67,10 +67,10 @@ type CollectionTranslations struct {
 }
 
 // CollectionTranslations gets the list translations for a collection by ID
-func (t *TMDB) CollectionTranslations(id int64, params ...option) (*CollectionTranslations, error) {
-	c := new(CollectionTranslations)
-	if err := t.get(c, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
+func (t *TMDB) CollectionTranslations(id int64, params ...option) (*Translations, error) {
+	t := new(Translations)
+	if err := t.get(t, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return c, nil
+	return t, nil
 }
