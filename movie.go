@@ -277,3 +277,12 @@ func (t *TMDB) MovieReviews(id int64, params ...option) (*MovieReviews, error) {
 	}
 	return m, nil
 }
+
+// MovieSimilar retrieves a list of recommended movies for a movie
+func (t *TMDB) MovieSimilar(id int64, params ...option) (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get(s, fmt.Sprintf("/3/movie/%d/similar", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
