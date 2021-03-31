@@ -177,6 +177,7 @@ func (t *TMDB) MovieImages(id int64, params ...option) (*MovieImages, error) {
 	return m, nil
 }
 
+// MovieKeywords contains all of a movies keywords
 type MovieKeywords struct {
 	ID       int64     `json:"id"`
 	Keywords []Keyword `json:"keywords"`
@@ -186,6 +187,31 @@ type MovieKeywords struct {
 func (t *TMDB) MovieKeywords(id int64) (*MovieKeywords, error) {
 	m := new(MovieKeywords)
 	if err := t.get(m, fmt.Sprintf("/3/movie/%d/keywords", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// MovieLists contains a list of lists that belong to a specific movie
+type MovieLists struct {
+	ID int64 `json:"id"`
+	Search
+	Results []struct {
+		Description   string  `json:"description"`
+		FavoriteCount int64   `json:"favorite_count"`
+		ID            int64   `json:"id"`
+		ItemCount     int64   `json:"item_count"`
+		Language      string  `json:"iso_639_1"`
+		ListType      string  `json:"list_type"`
+		Name          string  `json:"name"`
+		PosterPath    *string `json:"poster_path"`
+	} `json:"results"`
+}
+
+// MovieLists retrieves a list of lists that belong to the specified movie
+func (t *TMDB) MovieLists(id int64, params ...option) (*MovieLists, error) {
+	m := new(MovieLists)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/lists", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return m, nil
