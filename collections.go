@@ -68,9 +68,9 @@ type Translations struct {
 
 // CollectionTranslations gets the list translations for a collection by ID
 func (t *TMDB) CollectionTranslations(id int64, params ...option) (*Translations, error) {
-	t := new(Translations)
-	if err := t.get(t, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
+	tr := new(Translations)
+	if err := t.get(tr, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return t, nil
+	return tr, nil
 }
