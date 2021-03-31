@@ -225,3 +225,26 @@ func (t *TMDB) MovieRecommendations(id int64, params ...option) (*SearchMovie, e
 	}
 	return s, nil
 }
+
+// MovieReleaseDates contains a list of release dates, by country, for a movie
+type MovieReleaseDates struct {
+	ID      int64 `json:"id"`
+	Results []struct {
+		Country      string `json:"iso_3166_1"`
+		ReleaseDates []struct {
+			Certification string `json:"certification"`
+			Language      string `json:"iso_639_1"`
+			Type          int64  `json:"type"`
+			Note          string `json:"note"`
+		} `json:"release_dates"`
+	} `json:"results"`
+}
+
+// MovieReleaseDates retrieves a list of release dates, by country, for the given movie
+func (t *TMDB) MovieReleaseDates(id int64) (*MovieReleaseDates, error) {
+	m := new(MovieReleaseDates)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/release_dates", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
