@@ -295,3 +295,27 @@ func (t *TMDB) MovieTranslations(id int64) (*Translations, error) {
 	}
 	return t, nil
 }
+
+// MovieVideos contains all of the videos related to a movie
+type MovieVideos struct {
+	ID      int64 `json:"id"`
+	Results []struct {
+		ID       string `json:"id"`
+		Language string `json:"iso_639_1"`
+		Country  string `json:"iso_3166_1"`
+		Key      string `json:"key"`
+		Name     string `json:"name"`
+		Site     string `json:"site"`
+		Size     int64  `json:"size"`
+		Type     string `json:"type"`
+	} `json:"results"`
+}
+
+// MovieVideos retrieves all of the videos related to a movie
+func (t *TMDB) MovieVideos(id int64, params ...option) (*MovieVideos, error) {
+	m := new(MovieVideos)
+	if err := t.get(m, fmt.Sprintf("/3/movie/%d/videos", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
