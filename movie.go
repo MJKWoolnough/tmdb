@@ -216,3 +216,12 @@ func (t *TMDB) MovieLists(id int64, params ...option) (*MovieLists, error) {
 	}
 	return m, nil
 }
+
+// MovieRecommendations retrieves a list of recommended movies for a movie
+func (t *TMDB) MovieRecommendations(id int64, params ...option) (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get(s, fmt.Sprintf("/3/movie/%d/recommendations", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
