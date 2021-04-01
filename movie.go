@@ -395,3 +395,12 @@ func (t *TMDB) MovieTopRated(params ...option) (*SearchMovie, error) {
 	}
 	return s, nil
 }
+
+// MovieUpcoming retrieves a list of upcoming movies
+func (t *TMDB) MovieUpcoming(params ...option) (*MoviesWithDates, error) {
+	m := new(MoviesWithDates)
+	if err := t.get(m, "/3/movie/upcoming", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
