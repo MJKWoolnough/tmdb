@@ -359,8 +359,8 @@ func (t *TMDB) MovieLatest(params ...option) (*MovieDetails, error) {
 	return m, nil
 }
 
-// MovieNowPlaying contains a list of currently playing movies
-type MovieNowPlaying struct {
+// MoviesWithDates contains a list of movies and the minimum and maximum play dates
+type MoviesWithDates struct {
 	Search
 	Results []MovieResult `json:"results"`
 	Dates   struct {
@@ -370,8 +370,8 @@ type MovieNowPlaying struct {
 }
 
 // MovieNowPlaying retrives a list of currently playing movies
-func (t *TMDB) MovieNowPlaying(params ...option) (*MovieNowPlaying, error) {
-	m := new(MovieNowPlaying)
+func (t *TMDB) MovieNowPlaying(params ...option) (*MoviesWithDates, error) {
+	m := new(MoviesWithDates)
 	if err := t.get(m, "/3/movie/now_playing", url.Values{}, params...); err != nil {
 		return nil, err
 	}
