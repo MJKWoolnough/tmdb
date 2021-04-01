@@ -16,14 +16,11 @@ type ProductionCompany struct {
 
 // MovieDetails contains all of the details of a particular movie
 type MovieDetails struct {
-	Adult               bool            `json:"adult"`
-	BackdropPath        *string         `json:"backdrop_path"`
-	BelongsToCollection json.RawMessage `json:"belongs_to_collection"`
-	Budget              int64           `json:"budget"`
-	Genres              []struct {
-		ID   int64  `json:"id"`
-		Name string `json:"name"`
-	} `json:"genres"`
+	Adult               bool                `json:"adult"`
+	BackdropPath        *string             `json:"backdrop_path"`
+	BelongsToCollection json.RawMessage     `json:"belongs_to_collection"`
+	Budget              int64               `json:"budget"`
+	Genres              Genres              `json:"genres"`
 	Homepage            *string             `json:"homepage"`
 	ID                  int64               `json:"id"`
 	IMDBID              *string             `json:"imdb_id"`
