@@ -386,3 +386,12 @@ func (t *TMDB) MoviePopular(params ...option) (*SearchMovie, error) {
 	}
 	return s, nil
 }
+
+// MovieTopRated retrieves a list of top-rated movies
+func (t *TMDB) MovieTopRated(params ...option) (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get(s, "/3/movie/top_rated", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
