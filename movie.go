@@ -6,6 +6,14 @@ import (
 	"net/url"
 )
 
+// ProductionCompany contains information about the production company of a movie/show
+type ProductionCompany struct {
+	Name          string  `json:"name"`
+	ID            int64   `json:"id"`
+	LogoPath      *string `json:"logo_path"`
+	OriginCountry string  `json:"origin_country"`
+}
+
 // MovieDetails contains all of the details of a particular movie
 type MovieDetails struct {
 	Adult               bool            `json:"adult"`
@@ -16,20 +24,15 @@ type MovieDetails struct {
 		ID   int64  `json:"id"`
 		Name string `json:"name"`
 	} `json:"genres"`
-	Homepage            *string `json:"homepage"`
-	ID                  int64   `json:"id"`
-	IMDBID              *string `json:"imdb_id"`
-	OriginalLanguage    string  `json:"original_language"`
-	OriginalTitle       string  `json:"original_title"`
-	Overview            *string `json:"overview"`
-	Popularity          float64 `json:"popularity"`
-	PosterPath          *string `json:"poster_path"`
-	ProductionCompanies []struct {
-		Name          string  `json:"name"`
-		ID            int64   `json:"id"`
-		LogoPath      *string `json:"logo_path"`
-		OriginCountry string  `json:"origin_country"`
-	} `json:"production_companies"`
+	Homepage            *string             `json:"homepage"`
+	ID                  int64               `json:"id"`
+	IMDBID              *string             `json:"imdb_id"`
+	OriginalLanguage    string              `json:"original_language"`
+	OriginalTitle       string              `json:"original_title"`
+	Overview            *string             `json:"overview"`
+	Popularity          float64             `json:"popularity"`
+	PosterPath          *string             `json:"poster_path"`
+	ProductionCompanies []ProductionCompany `json:"production_companies"`
 	ProductionCountries []struct {
 		Country string `json:"iso_3166_1"`
 		Name    string `json:"name"`
