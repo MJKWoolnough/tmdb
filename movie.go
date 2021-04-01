@@ -377,3 +377,12 @@ func (t *TMDB) MovieNowPlaying(params ...option) (*MovieNowPlaying, error) {
 	}
 	return m, nil
 }
+
+// MoviePopular retrieves a list of popular movies
+func (t *TMDB) MoviePopular(params ...option) (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get(s, "/3/movie/popular", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
