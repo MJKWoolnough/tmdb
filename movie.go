@@ -349,3 +349,12 @@ func (t *TMDB) MovieWatchProviders(id int64) (*WatchProviders, error) {
 	}
 	return m, nil
 }
+
+// MovieLatest returns the latest movie added to the database
+func (t *TMDB) MovieLatest(params ...option) (*MovieDetails, error) {
+	m := new(MovieDetails)
+	if err := t.get(m, "/3/movie/latest", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
