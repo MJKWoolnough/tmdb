@@ -128,20 +128,20 @@ type CrewCredit struct {
 	Job        string `json:"job"`
 }
 
-// MovieCredits contains all of the credits for a movie
-type MovieCredits struct {
+// Credits contains all of the credits for a movie
+type Credits struct {
 	ID   int64
 	Cast []CastCredit `json:"cast"`
 	Crew []CrewCredit `json:"crew"`
 }
 
 // MovieCredits retrieves all of the credits for a movie
-func (t *TMDB) MovieCredits(id int64, params ...option) (*MovieCredits, error) {
-	m := new(MovieCredits)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/credits", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieCredits(id int64, params ...option) (*Credits, error) {
+	c := new(Credits)
+	if err := t.get(c, fmt.Sprintf("/3/movie/%d/credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return c, nil
 }
 
 // MovieExternalIDs contains all known external IDs for a movie
