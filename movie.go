@@ -58,8 +58,8 @@ func (t *TMDB) MovieDetails(id int64, params ...option) (*MovieDetails, error) {
 	return m, nil
 }
 
-// MovieAlternativeTitles is a list of the alternative titles for a movie
-type MovieAlternativeTitles struct {
+// AlternativeTitles is a list of the alternative titles for a movie
+type AlternativeTitles struct {
 	ID     int64 `json:"id"`
 	Titles []struct {
 		Country string `json:"iso_3166_1"`
@@ -69,12 +69,12 @@ type MovieAlternativeTitles struct {
 }
 
 // MovieAlternativeTitles returns all of the alternative titles for a movie
-func (t *TMDB) MovieAlternativeTitles(id int64, params ...option) (*MovieAlternativeTitles, error) {
-	m := new(MovieAlternativeTitles)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/alternative_titles", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieAlternativeTitles(id int64, params ...option) (*AlternativeTitles, error) {
+	a := new(AlternativeTitles)
+	if err := t.get(a, fmt.Sprintf("/3/movie/%d/alternative_titles", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return a, nil
 }
 
 // MovieChanges lists changes to a movie entry
