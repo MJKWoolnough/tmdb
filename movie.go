@@ -109,12 +109,12 @@ type CreditShared struct {
 	OriginalName       string  `json:"original_name"`
 	Popularity         float64 `json:"popularity"`
 	ProfilePath        *string `json:"profile_path"`
-	CreditID           int64   `json:"credit_id"`
 }
 
 // CastCredit represents the credit information for a cast member
 type CastCredit struct {
 	CreditShared
+	CreditID  int64  `json:"credit_id"`
 	Character string `json:"character"`
 	CastID    string `json:"cast_id"`
 	Order     int64  `json:"order"`
@@ -123,6 +123,7 @@ type CastCredit struct {
 // CrewCredit represents the credit information for a crew memeber
 type CrewCredit struct {
 	CreditShared
+	CreditID   int64  `json:"credit_id"`
 	Department string `json:"department"`
 	Job        string `json:"job"`
 }
