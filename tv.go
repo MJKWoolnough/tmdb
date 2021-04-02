@@ -116,3 +116,12 @@ func (t *TMDB) TVAlternativeTitles(id int64, params ...option) (*AlternativeTitl
 	}
 	return a, nil
 }
+
+// TVChanges retrieves the list of changes for a TV show
+func (t *TMDB) TVChanges(id int64, params ...option) (*EntryChanges, error) {
+	e := new(EntryChanges)
+	if err := t.get(e, fmt.Sprintf("/3/tv/%d/changes", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return e, nil
+}
