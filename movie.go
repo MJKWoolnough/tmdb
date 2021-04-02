@@ -77,8 +77,8 @@ func (t *TMDB) MovieAlternativeTitles(id int64, params ...option) (*AlternativeT
 	return a, nil
 }
 
-// MovieChanges lists changes to a movie entry
-type MovieChanges []struct {
+// EntryChanges lists changes to a movie entry
+type EntryChanges []struct {
 	Key   string `json:"key"`
 	Items []struct {
 		ID            string `json:"id"`
@@ -91,12 +91,12 @@ type MovieChanges []struct {
 }
 
 // MovieChanges returns changes to a movie entry
-func (t *TMDB) MovieChanges(id int64, params ...option) (*MovieChanges, error) {
-	m := new(MovieChanges)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/changes", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieChanges(id int64, params ...option) (*EntryChanges, error) {
+	e := new(EntryChanges)
+	if err := t.get(e, fmt.Sprintf("/3/movie/%d/changes", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return e, nil
 }
 
 // CreditShared represents the shared information for crediting either a cast or crew member
