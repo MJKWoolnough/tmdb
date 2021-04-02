@@ -107,3 +107,12 @@ func (t *TMDB) TVAggregateCredits(id int64, params ...option) (*TVAggregateCredi
 	}
 	return tv, nil
 }
+
+// TVAlternativeTitles retrieves the alternative titles for a TV show
+func (t *TMDB) TVAlternativeTitles(id int64, params ...option) (*AlternativeTitles, error) {
+	a := new(AlternativeTitles)
+	if err := t.get(a, fmt.Sprintf("/3/tv/%d/alternative_titles", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return a, nil
+}
