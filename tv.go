@@ -75,3 +75,35 @@ func (t *TMDB) TVShow(id int64, params ...option) (*TVShow, error) {
 	}
 	return tv, nil
 }
+
+// TVAggregateCredits contains the aggregated credits for a TV show
+type TVAggregateCredits struct {
+	Cast []struct {
+		CreditShared
+		Roles []struct {
+			CreditID     string `json:"credit_id"`
+			Character    string `json:"character"`
+			EpisodeCount int64  `json:"episode_count"`
+		} `json:"roles"`
+		TotalEpisodeCount int64 `json:"total_episode_count"`
+		Order             int64 `json:"order"`
+	} `json:"cast"`
+	Crew []struct {
+		CreditShared
+		Jobs []struct {
+			CreditID     string `json:"credit_id"`
+			Job          string `json:"job"`
+			EpisodeCount int64  `json:"episode_count"`
+		} `jobs:"jobs"`
+	} `json:"crew"`
+	ID int64 `json:"id"`
+}
+
+// TVAggregateCredits retrieves the aggregated credits for a TV show
+func (t *TMDB) TVAggregateCredits(id int64, params ...option) (*TVAggregateCredits, error) {
+	tv := new(TVAggregateCredits)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/aggregate_credits", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
