@@ -143,3 +143,12 @@ func (t *TMDB) TVContentRatings(id int64, params ...option) (*TVContentRatings, 
 	}
 	return tv, nil
 }
+
+// TVCredits retrieves the credits for a TV show
+func (t *TMDB) TVCredits(id int64, params ...option) (*Credits, error) {
+	c := new(Credits)
+	if err := t.get(c, fmt.Sprintf("/3/tv/%d/credits", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
