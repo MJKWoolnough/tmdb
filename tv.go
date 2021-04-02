@@ -125,3 +125,21 @@ func (t *TMDB) TVChanges(id int64, params ...option) (*EntryChanges, error) {
 	}
 	return e, nil
 }
+
+// TVContentRatings containts the content ratings for a TV show
+type TVContentRatings struct {
+	Results []struct {
+		Country string `json:"iso_3166_1"`
+		Rating  string `json:"rating"`
+	} `json:"results"`
+	ID int64 `json:"id"`
+}
+
+// TVContentRatings retrieves the content ratings for a TV show
+func (t *TMDB) TVContentRatings(id int64, params ...option) (*TVContentRatings, error) {
+	tv := new(TVContentRatings)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/content_ratings", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
