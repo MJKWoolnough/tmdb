@@ -152,3 +152,25 @@ func (t *TMDB) TVCredits(id int64, params ...option) (*Credits, error) {
 	}
 	return c, nil
 }
+
+// TVEpisodeGroups contains all of the episode groups for a TV show
+type TVEpisodeGroups struct {
+	Results []struct {
+		Description  string             `json:"description"`
+		EpisodeCount int64              `json:"episode_count"`
+		ID           string             `json:"id"`
+		Name         string             `json:"name"`
+		Network      *ProductionCompany `json:"network"`
+		Type         int64              `json:"type"`
+	} `json:"results"`
+	ID int64 `json:"id"`
+}
+
+// TVEpisodeGroups retrieves all of the episode groups for a TV show
+func (t *TMDB) TVEpisodeGroups(id int64, params ...option) (*TVEpisodeGroups, error) {
+	tv := new(TVEpisodeGroups)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/episode_groups", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
