@@ -214,3 +214,12 @@ func (t *TMDB) TVKeywords(id int64) (*Keywords, error) {
 	}
 	return k, nil
 }
+
+// TVRecommendations retrieves all of the recommendations for a TV show
+func (t *TMDB) TVRecommendations(id int64, params ...option) (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, fmt.Sprintf("/3/tv/%d/recommendations", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
