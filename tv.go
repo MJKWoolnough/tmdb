@@ -232,3 +232,22 @@ func (t *TMDB) TVReviews(id int64, params ...option) (*Reviews, error) {
 	}
 	return r, nil
 }
+
+// TVScreenedTheatrically contains all of the episodes of a TV show that were screened theatrically
+type TVScreenedTheatrically struct {
+	ID      int64 `json:"id"`
+	Results []struct {
+		ID            int64 `json:"id"`
+		EpisodeNumber int64 `json:"episode_number"`
+		SeasonNumber  int64 `json:"season_number"`
+	} `json:"results"`
+}
+
+// TVScreenedTheatrically retrieves all of the episodes of a TV show that were screened theatrically
+func (t *TMDB) TVScreenedTheatrically(id int64) (*TVScreenedTheatrically, error) {
+	tv := new(TVScreenedTheatrically)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/screen_theatrically", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
