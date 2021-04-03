@@ -200,8 +200,17 @@ func (t *TMDB) TVExternalIDs(id int64, params ...option) (*TVExternalIDs, error)
 // TVImages retrieves all of the images for a TV show
 func (t *TMDB) TVImages(id int64, params ...option) (*Images, error) {
 	i := new(Images)
-	if err := t.get(i, fmt.Sprintf("/3/tv/%d/external_ids", id), url.Values{}, params...); err != nil {
+	if err := t.get(i, fmt.Sprintf("/3/tv/%d/images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return i, nil
+}
+
+// TVKeywords retrieves all of the keywords for a TV show
+func (t *TMDB) TVKeywords(id int64) (*Keywords, error) {
+	k := new(Keywords)
+	if err := t.get(k, fmt.Sprintf("/3/tv/%d/keywords", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return k, nil
 }
