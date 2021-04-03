@@ -223,3 +223,12 @@ func (t *TMDB) TVRecommendations(id int64, params ...option) (*SearchTV, error) 
 	}
 	return s, nil
 }
+
+// TVReviews retrieves reviews for a TV show
+func (t *TMDB) TVReviews(id int64, params ...option) (*Reviews, error) {
+	r := new(Reviews)
+	if err := t.get(r, fmt.Sprintf("/3/tv/%d/reviews", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return r, nil
+}
