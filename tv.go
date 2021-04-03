@@ -251,3 +251,12 @@ func (t *TMDB) TVScreenedTheatrically(id int64) (*TVScreenedTheatrically, error)
 	}
 	return tv, nil
 }
+
+// TVSimilar retrieves all of the similar TV shows
+func (t *TMDB) TVSimilar(id int64, params ...option) (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, fmt.Sprintf("/3/tv/%d/similar", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
