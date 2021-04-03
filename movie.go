@@ -162,20 +162,20 @@ func (t *TMDB) MovieExternalIDs(id int64) (*MovieExternalIDs, error) {
 	return m, nil
 }
 
-// MovieImages contains all linked images for a movie
-type MovieImages struct {
+// Images contains all linked images for a movie
+type Images struct {
 	ID        int64   `json:"id"`
 	Backdrops []Image `json:"backdrops"`
 	Posters   []Image `json:"posters"`
 }
 
 // MovieImages retrieves all linked images for a movie
-func (t *TMDB) MovieImages(id int64, params ...option) (*MovieImages, error) {
-	m := new(MovieImages)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/images", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieImages(id int64, params ...option) (*Images, error) {
+	i := new(Images)
+	if err := t.get(i, fmt.Sprintf("/3/movie/%d/images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return i, nil
 }
 
 // MovieKeywords contains all of a movies keywords
