@@ -174,3 +174,25 @@ func (t *TMDB) TVEpisodeGroups(id int64, params ...option) (*TVEpisodeGroups, er
 	}
 	return tv, nil
 }
+
+// TVExternalIDs contains all known external IDs for a TV show
+type TVExternalIDs struct {
+	IMDB        *string `json:"imdb_id"`
+	FreebaseMID *string `json:"freebase_mid"`
+	FreebaseID  *string `json:"freebase_id"`
+	TVDB        *int64  `json:"tvdb_id"`
+	TVRage      *int64  `json:"tbrage_id"`
+	Facebook    *string `json:"facebook_id"`
+	Instagram   *string `json:"instagram_id"`
+	Twitter     *string `json:"twitter_ id"`
+	ID          int64   `json:"id"`
+}
+
+// TVExternalIDs retrieves all of the external ids for a TV show
+func (t *TMDB) TVExternalIDs(id int64, params ...option) (*TVExternalIDs, error) {
+	tv := new(TVExternalIDs)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/external_ids", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
