@@ -250,8 +250,8 @@ func (t *TMDB) MovieReleaseDates(id int64) (*MovieReleaseDates, error) {
 	return m, nil
 }
 
-// MovieReviews contains user reviews for a movie
-type MovieReviews struct {
+// Reviews contains user reviews for an entry
+type Reviews struct {
 	ID int64 `json:"id"`
 	Search
 	Results []struct {
@@ -271,12 +271,12 @@ type MovieReviews struct {
 }
 
 // MovieReviews returns a list of reviews for the specified movie
-func (t *TMDB) MovieReviews(id int64, params ...option) (*MovieReviews, error) {
-	m := new(MovieReviews)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/reviews", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieReviews(id int64, params ...option) (*Reviews, error) {
+	r := new(Reviews)
+	if err := t.get(r, fmt.Sprintf("/3/movie/%d/reviews", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return r, nil
 }
 
 // MovieSimilar retrieves a list of recommended movies for a movie
