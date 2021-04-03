@@ -169,7 +169,7 @@ type Images struct {
 	Posters   []Image `json:"posters"`
 }
 
-// MovieImages retrieves all linked images for a movie
+// MovieImages retrieves all linked images for an entry
 func (t *TMDB) MovieImages(id int64, params ...option) (*Images, error) {
 	i := new(Images)
 	if err := t.get(i, fmt.Sprintf("/3/movie/%d/images", id), url.Values{}, params...); err != nil {
@@ -178,19 +178,19 @@ func (t *TMDB) MovieImages(id int64, params ...option) (*Images, error) {
 	return i, nil
 }
 
-// MovieKeywords contains all of a movies keywords
-type MovieKeywords struct {
+// Keywords contains all of an entry's keywords
+type Keywords struct {
 	ID       int64     `json:"id"`
 	Keywords []Keyword `json:"keywords"`
 }
 
 // MovieKeywords retrieves all of the keywords for a movie
-func (t *TMDB) MovieKeywords(id int64) (*MovieKeywords, error) {
-	m := new(MovieKeywords)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/keywords", id), url.Values{}); err != nil {
+func (t *TMDB) MovieKeywords(id int64) (*Keywords, error) {
+	k := new(Keywords)
+	if err := t.get(k, fmt.Sprintf("/3/movie/%d/keywords", id), url.Values{}); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return k, nil
 }
 
 // MovieLists contains a list of lists that belong to a specific movie
