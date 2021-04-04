@@ -260,3 +260,12 @@ func (t *TMDB) TVSimilar(id int64, params ...option) (*SearchTV, error) {
 	}
 	return s, nil
 }
+
+// TVTranslations contains all of the translations that exist for a show
+func (t *TMDB) TVTranslations(id int64) (*Translations, error) {
+	tv := new(Translations)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/translations", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
