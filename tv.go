@@ -314,3 +314,12 @@ func (t *TMDB) TVOnTheAir(params ...option) (*SearchTV, error) {
 	}
 	return s, nil
 }
+
+// TVPopular retrieves a list of popular TV show
+func (t *TMDB) TVPopular(params ...option) (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, "/3/tv/popular", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
