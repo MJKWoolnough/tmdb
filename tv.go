@@ -261,7 +261,7 @@ func (t *TMDB) TVSimilar(id int64, params ...option) (*SearchTV, error) {
 	return s, nil
 }
 
-// TVTranslations contains all of the translations that exist for a show
+// TVTranslations retrieves all of the translations that exist for a show
 func (t *TMDB) TVTranslations(id int64) (*Translations, error) {
 	tv := new(Translations)
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/translations", id), url.Values{}); err != nil {
@@ -277,4 +277,13 @@ func (t *TMDB) TVVideos(id int64, params ...option) (*Videos, error) {
 		return nil, err
 	}
 	return v, nil
+}
+
+// TVWatchProviders retrieves all of the watch providers that exist for a show
+func (t *TMDB) TVWatchProviders(id int64) (*WatchProviders, error) {
+	w := new(WatchProviders)
+	if err := t.get(w, fmt.Sprintf("/3/tv/%d/watch_providers", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return w, nil
 }
