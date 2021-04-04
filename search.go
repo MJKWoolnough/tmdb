@@ -33,6 +33,29 @@ func (t *TMDB) SearchCompany(query string, params ...option) (*SearchCompany, er
 	return s, nil
 }
 
+// CollectionResult stores a single result of a collection search
+type CollectionResult struct {
+	ID           int64   `json:"id"`
+	BackdropPath *string `json:"backdrop_path"`
+	Name         string  `json:"name"`
+	PosterPath   *string `json:"poster_path"`
+}
+
+// SearchCollection is the results returned from a Collection search
+type SearchCollection struct {
+	Search
+	Results []CollectionResult `json:"results"`
+}
+
+// SearchCollection searches the TMDB Movie database for the name given
+func (t *TMDB) SearchCollection(query string, params ...option) (*SearchCollection, error) {
+	s := new(SearchCollection)
+	if err := t.get(s, "/3/search/collection", url.Values{"query": []string{query}}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
 // MovieResult stores a single result of a movie search
 type MovieResult struct {
 	PosterPath       *string `json:"poster_path"`
