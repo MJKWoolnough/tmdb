@@ -305,3 +305,12 @@ func (t *TMDB) TVAiringToday(params ...option) (*SearchTV, error) {
 	}
 	return s, nil
 }
+
+// TVOnTheAir retrieves TV show that are airing within the next 7 days
+func (t *TMDB) TVOnTheAir(params ...option) (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, "/3/tv/on_the_air", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
