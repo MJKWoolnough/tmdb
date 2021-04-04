@@ -269,3 +269,12 @@ func (t *TMDB) TVTranslations(id int64) (*Translations, error) {
 	}
 	return tv, nil
 }
+
+// TVVideos retrieves all of the videos for a TV shows
+func (t *TMDB) TVVideos(id int64, params ...option) (*Videos, error) {
+	v := new(Videos)
+	if err := t.get(v, fmt.Sprintf("/3/tv/%d/videos", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return v, nil
+}
