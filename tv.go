@@ -296,3 +296,12 @@ func (t *TMDB) TVLatest() (*TVShow, error) {
 	}
 	return tv, nil
 }
+
+// TVAiringToday retrieves the TV show airing today
+func (t *TMDB) TVAiringToday(params ...option) (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, "/3/tv/airing_today", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
