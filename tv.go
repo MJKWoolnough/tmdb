@@ -287,3 +287,12 @@ func (t *TMDB) TVWatchProviders(id int64) (*WatchProviders, error) {
 	}
 	return w, nil
 }
+
+// TVLatest retrieves the latest TV show added to the database
+func (t *TMDB) TVLatest() (*TVShow, error) {
+	tv := new(TVShow)
+	if err := t.get(tv, "/3/tv/latest", url.Values{}); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
