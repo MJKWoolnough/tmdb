@@ -297,8 +297,8 @@ func (t *TMDB) MovieTranslations(id int64) (*Translations, error) {
 	return tr, nil
 }
 
-// MovieVideos contains all of the videos related to a movie
-type MovieVideos struct {
+// Videos contains all of the videos related to a movie
+type Videos struct {
 	ID      int64 `json:"id"`
 	Results []struct {
 		ID       string `json:"id"`
@@ -313,12 +313,12 @@ type MovieVideos struct {
 }
 
 // MovieVideos retrieves all of the videos related to a movie
-func (t *TMDB) MovieVideos(id int64, params ...option) (*MovieVideos, error) {
-	m := new(MovieVideos)
-	if err := t.get(m, fmt.Sprintf("/3/movie/%d/videos", id), url.Values{}, params...); err != nil {
+func (t *TMDB) MovieVideos(id int64, params ...option) (*Videos, error) {
+	v := new(Videos)
+	if err := t.get(v, fmt.Sprintf("/3/movie/%d/videos", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
-	return m, nil
+	return v, nil
 }
 
 // WatchProviderData contains information about the provider of a video service
