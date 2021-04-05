@@ -101,7 +101,7 @@ func (t *TMDB) MovieChanges(id int64, params ...option) (*EntryChanges, error) {
 
 // CreditShared represents the shared information for crediting either a cast or crew member
 type CreditShared struct {
-	Adult              bool    `json:"adult"`
+	Adult              *bool   `json:"adult"`
 	Gender             *int64  `json:"gender"`
 	ID                 int64   `json:"id"`
 	KnownForDepartment string  `json:"known_for_department"`
