@@ -29,3 +29,12 @@ func (t *TMDB) TVSeason(id int64, season int64, params ...option) (*TVSeason, er
 	}
 	return tv, nil
 }
+
+// TVSeasonAggregateCredits retrieves the aggregate credits for a season of a TV show
+func (t *TMDB) TVSeasonAggregateCredits(id int64, season int64, params ...option) (*TVAggregateCredits, error) {
+	tv := new(TVAggregateCredits)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/season/%d/aggregate_credits", id, season), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
