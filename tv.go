@@ -5,6 +5,20 @@ import (
 	"net/url"
 )
 
+// Episode contains basic inforamtion for an episode
+type Episode struct {
+	AirDate        string  `json:"air_date"`
+	EpisodeNumber  int64   `json:"episode_number"`
+	ID             int64   `json:"id"`
+	Name           string  `json:"name"`
+	Overview       string  `json:"overview"`
+	ProductionCode string  `json:"production_code"`
+	SeasonNumber   int64   `json:"season_number"`
+	StillPath      *string `json:"still_path"`
+	VoteAverage    float64 `json:"vote_average"`
+	VoteCount      int64   `json:"vote_count"`
+}
+
 // TVShow contains all of the information about a TV Show
 type TVShow struct {
 	BackdropPath *string `json:"backdrop_path"`
@@ -15,26 +29,15 @@ type TVShow struct {
 		Gender      int64   `json:"gender"`
 		ProfilePath *string `json:"profile_path"`
 	} `json:"created_by"`
-	EpisodeRunTime   []int64  `json:"episode_run_time"`
-	FirstAirDate     string   `json:"first_air_date"`
-	Genres           Genres   `json:"genres"`
-	Homepage         string   `json:"homepage"`
-	ID               int64    `json:"id"`
-	InProduction     bool     `json:"in_production"`
-	Languages        []string `json:"languages"`
-	LastAirDate      string   `json:"last_air_date"`
-	LastEpisodeToAir struct {
-		AirDate        string  `json:"air_date"`
-		EpisodeNumber  int64   `json:"episode_number"`
-		ID             int64   `json:"id"`
-		Name           string  `json:"name"`
-		Overview       string  `json:"overview"`
-		ProductionCode string  `json:"production_code"`
-		SeasonNumber   int64   `json:"season_number"`
-		StillPath      *string `json:"still_path"`
-		VoteAverage    float64 `json:"vote_average"`
-		VoteCount      int64   `json:"vote_count"`
-	} `json:"last_episode_to_air"`
+	EpisodeRunTime      []int64             `json:"episode_run_time"`
+	FirstAirDate        string              `json:"first_air_date"`
+	Genres              Genres              `json:"genres"`
+	Homepage            string              `json:"homepage"`
+	ID                  int64               `json:"id"`
+	InProduction        bool                `json:"in_production"`
+	Languages           []string            `json:"languages"`
+	LastAirDate         string              `json:"last_air_date"`
+	LastEpisodeToAir    Episode             `json:"last_episode_to_air"`
 	Name                string              `json:"name"`
 	Networks            []ProductionCompany `json:"networks"`
 	NumberOfEpisodes    int64               `json:"number_of_episodes"`
