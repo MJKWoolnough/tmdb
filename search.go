@@ -56,6 +56,21 @@ func (t *TMDB) SearchCollection(query string, params ...option) (*SearchCollecti
 	return s, nil
 }
 
+// SearchKeywords is the results returned from a Keyword search
+type SearchKeywords struct {
+	Search
+	Results []Keyword `json:"results"`
+}
+
+// SearchKeywords search the TMDB database for the tersm given
+func (t *TMDB) SearchKeywords(query string, params ...option) (*SearchKeywords, error) {
+	s := new(SearchKeywords)
+	if err := t.get(s, "/3/search/keyword", url.Values{"query": []string{query}}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
 // MovieResult stores a single result of a movie search
 type MovieResult struct {
 	PosterPath       *string `json:"poster_path"`
