@@ -74,3 +74,12 @@ func (t *TMDB) TVSeasonImages(id int64, season int64, params ...option) (*Images
 	}
 	return i, nil
 }
+
+// TVSeasonTranslations retrieves all of the translations for a season of a TV show
+func (t *TMDB) TVSeasonTranslations(id int64, season int64, params ...option) (*Translations, error) {
+	tr := new(Translations)
+	if err := t.get(tr, fmt.Sprintf("/3/tv/%d/season/%d/translations", id, season), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tr, nil
+}
