@@ -65,3 +65,12 @@ func (t *TMDB) TVSeasonExternalIDs(id int64, season int64, params ...option) (*T
 	}
 	return tv, nil
 }
+
+// TVSeasonImages retrieves all of the images for a season of a TV show
+func (t *TMDB) TVSeasonImages(id int64, season int64, params ...option) (*Images, error) {
+	i := new(Images)
+	if err := t.get(i, fmt.Sprintf("/3/tv/%d/season/%d/images", id, season), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return i, nil
+}
