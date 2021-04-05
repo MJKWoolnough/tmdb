@@ -47,3 +47,12 @@ func (t *TMDB) TVSeasonChanges(id int64, season int64, params ...option) (*Entry
 	}
 	return e, nil
 }
+
+// TVSeasonCredits retrieves credits for a season of a TV show
+func (t *TMDB) TVSeasonCredits(id int64, season int64, params ...option) (*Credits, error) {
+	c := new(Credits)
+	if err := t.get(c, fmt.Sprintf("/3/tv/%d/season/%d/credits", id, season), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
