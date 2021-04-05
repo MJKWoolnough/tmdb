@@ -56,3 +56,12 @@ func (t *TMDB) TVSeasonCredits(id int64, season int64, params ...option) (*Credi
 	}
 	return c, nil
 }
+
+// TVSeasonExternalIDs retrieves all of the external ids for a season of a TV show
+func (t *TMDB) TVSeasonExternalIDs(id int64, season int64, params ...option) (*TVExternalIDs, error) {
+	tv := new(TVExternalIDs)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/season/%d/external_ids", id, season), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
