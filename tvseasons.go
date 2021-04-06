@@ -5,6 +5,7 @@ import (
 	"net/url"
 )
 
+// TVEpisode contains basic information about an episode of a TV show
 type TVEpisode struct {
 	Episode
 	Crew       []CrewCredit
