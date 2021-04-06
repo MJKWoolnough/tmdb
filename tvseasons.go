@@ -5,20 +5,22 @@ import (
 	"net/url"
 )
 
+type TVEpisode struct {
+	Episode
+	Crew       []CrewCredit
+	GuestStars []CastCredit
+}
+
 // TVSeason contains the details for a season of a TV show
 type TVSeason struct {
-	StrID    string `json:"_id"`
-	AirDate  string `json:"air_date"`
-	Episodes []struct {
-		Episode
-		Crew       []CrewCredit
-		GuestStars []CastCredit
-	} `json:"episodes"`
-	Name         string  `json:"name"`
-	Overview     string  `json:"overview"`
-	ID           int64   `json:"id"`
-	PosterPath   *string `json:"poster_path"`
-	SeasonNumber int64   `json:"season_number"`
+	StrID        string      `json:"_id"`
+	AirDate      string      `json:"air_date"`
+	Episodes     []TVEpisode `json:"episodes"`
+	Name         string      `json:"name"`
+	Overview     string      `json:"overview"`
+	ID           int64       `json:"id"`
+	PosterPath   *string     `json:"poster_path"`
+	SeasonNumber int64       `json:"season_number"`
 }
 
 // TVSeason retrieves the details for a season of a TV show
