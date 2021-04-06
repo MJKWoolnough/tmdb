@@ -39,3 +39,22 @@ func (t *TMDB) TVEpisodeCredits(id int64, season int64, episode int64, params ..
 	}
 	return tv, nil
 }
+
+// TVEpisodeExternalIDs contains all of the known external IDs for an episode of a TV show
+type TVEpisodeExternalIDs struct {
+	IMDB        *string `json:"imdb_id"`
+	FreebaseMID *string `json:"freebase_mid"`
+	FreebaseID  *string `json:"freebase_id"`
+	TVDB        *int64  `json:"tvdb_id"`
+	TVRage      *int64  `json:"tbrage_id"`
+	ID          int64   `json:"id"`
+}
+
+// TVEpisodeExternalIDs retrieves all of the known external IDs for an episode of a TV show
+func (t *TMDB) TVEpisodeExternalIDs(id int64, season int64, episode int64, params ...option) (*TVEpisodeExternalIDs, error) {
+	tv := new(TVEpisodeExternalIDs)
+	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/season/%d/episode/%d/external_ids", id, season, episode), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return tv, nil
+}
