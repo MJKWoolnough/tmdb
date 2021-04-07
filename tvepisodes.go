@@ -76,3 +76,12 @@ func (t *TMDB) TVEpisodeTranslations(id int64, season int64, episode int64, para
 	}
 	return tr, nil
 }
+
+// TVEpisodeVideos retrieves all of the videos for an episode of a TV show
+func (t *TMDB) TVEpisodeVideos(id int64, season int64, episode int64, params ...option) (*Videos, error) {
+	v := new(Videos)
+	if err := t.get(v, fmt.Sprintf("/3/tv/%d/season/%d/episode/%d/videos", id, season, episode), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return v, nil
+}
