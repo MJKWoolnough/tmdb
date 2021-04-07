@@ -11,9 +11,9 @@ type Change struct {
 // Changes lists results from a change search
 type Changes struct {
 	Results      []Change `json:"results"`
-	Page         uint16   `json:"page"`
-	TotalPages   uint16   `json:"total_pages"`
-	TotalResults uint64   `json:"total_results"`
+	Page         int64    `json:"page"`
+	TotalPages   int64    `json:"total_pages"`
+	TotalResults int64    `json:"total_results"`
 }
 
 // ChangesMovie returns all of the Movie changes within the last 24 hours, filtered by the given params
