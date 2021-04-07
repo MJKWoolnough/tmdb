@@ -35,6 +35,19 @@ func V4Key(v4key string) APIKey {
 	}
 }
 
+type v3Key struct {
+	key string
+}
+
+func (v v3Key) setAPIKey(_ *http.Request, query url.Values) {
+	query.Set("api_key", v.key)
+}
+
+// V3Key create new TVDM APIv3 key
+func V3Key(v3key string) APIKey {
+	return v3Key{v3key}
+}
+
 // TMDB holds an API Key to allow connection to TMDB
 type TMDB struct {
 	apiKey APIKey
