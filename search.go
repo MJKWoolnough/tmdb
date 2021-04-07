@@ -6,9 +6,9 @@ import (
 
 // Search stores the pages fields for a returned search
 type Search struct {
-	Page         uint16 `json:"page"`
-	TotalResults uint64 `json:"total_results"`
-	TotalPages   uint64 `json:"total_pages"`
+	Page         int64 `json:"page"`
+	TotalResults int64 `json:"total_results"`
+	TotalPages   int64 `json:"total_pages"`
 }
 
 // CompanyResult stores a single result of a company search
