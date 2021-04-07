@@ -10,6 +10,9 @@ import (
 var (
 	contentType   = []string{"application/json;charset=utf-8"}
 	defaultURL, _ = url.Parse("https://api.themoviedb.org/")
+	v3Header      = http.Header{
+		"Content-Type": contentType,
+	}
 )
 
 // APIKey is used to set the API key for a request
@@ -39,7 +42,8 @@ type v3Key struct {
 	key string
 }
 
-func (v v3Key) setAPIKey(_ *http.Request, query url.Values) {
+func (v v3Key) setAPIKey(r *http.Request, query url.Values) {
+	r.Header = v3Header
 	query.Set("api_key", v.key)
 }
 
