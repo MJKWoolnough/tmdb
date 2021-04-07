@@ -19,3 +19,12 @@ func (t *TMDB) TrendingWeek() (*SearchMovie, error) {
 	}
 	return t, nil
 }
+
+// TrendingMoviesDay retrieves a list of trending moveisover the last day
+func (t *TMDB) TrendingMoviesDay() (*SearchMovie, error) {
+	s := new(SearchMovie)
+	if err := t.get(s, "/3/trending/movie/day", url.Values{}); err != nil {
+		return nil, err
+	}
+	return t, nil
+}
