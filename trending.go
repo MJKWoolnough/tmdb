@@ -64,3 +64,12 @@ func (t *TMDB) TrendingPeopleDay() (*SearchPeople, error) {
 	}
 	return s, nil
 }
+
+// TrendingPeopleWeek retrieves a list of trending people over the last week
+func (t *TMDB) TrendingPeopleWeek() (*SearchPeople, error) {
+	s := new(SearchPeople)
+	if err := t.get(s, "/3/trending/person/week", url.Values{}); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
