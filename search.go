@@ -104,6 +104,51 @@ func (t *TMDB) SearchMovie(query string, params ...option) (*SearchMovie, error)
 	return s, nil
 }
 
+// PeopleResult stores a single result of a people search
+type PeopleResult struct {
+	ProfilePath *string `json:"profile_path"`
+	Adult       bool    `json:"adult"`
+	ID          int64   `json:"id"`
+	KnownFor    struct {
+		PosterPath       *string  `json:"poster_path"`
+		Adult            bool     `json:"adult"`
+		Overview         string   `json:"overview"`
+		ReleaseDate      string   `json:"release_date"`
+		OriginalTitle    string   `json:"original_title"`
+		GenreIDs         []int64  `json:"genre_ids"`
+		ID               int64    `json:"id"`
+		MediaType        string   `json:"media_type"`
+		OriginalLanguage string   `json:"original_language"`
+		Title            string   `json:"title"`
+		BackdropPath     *string  `json:"backdrop_path"`
+		Popularity       float64  `json:"popularity"`
+		VoteCount        int64    `json:"vote_count"`
+		Video            bool     `json:"video"`
+		VoteAverage      float64  `json:"vote_average"`
+		FirstAirDate     string   `json:"first_air_date"`
+		OriginCountry    []string `json:"origin_country"`
+		Name             string   `json:"name"`
+		OriginalName     string   `json:"original_name"`
+	} `json:"known_for"`
+	Name       string  `json:"name"`
+	Popularity float64 `json:"popularity"`
+}
+
+// SearchPeople searc the TMDB People database for the name given
+type SearchPeople struct {
+	Search
+	Results []PeopleResult `json:"results"`
+}
+
+// SearchPerson searches the TMDB people database for the name given
+func (t *TMDB) SearchPerson(query string, params ...option) (*SearchPeople, error) {
+	s := new(SearchPeople)
+	if err := t.get(s, "/3/search/person", url.Values{"query": []string{query}}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
 // TVResult stores a single result of a TV search
 type TVResult struct {
 	PosterPath       *string  `json:"poster_path"`
