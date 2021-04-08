@@ -46,3 +46,12 @@ func (t *TMDB) TrendingTVDay() (*SearchTV, error) {
 	}
 	return s, nil
 }
+
+// TrendingTVWeek retrieves a list of trending tv shows over the last week
+func (t *TMDB) TrendingTVWeek() (*SearchTV, error) {
+	s := new(SearchTV)
+	if err := t.get(s, "/3/trending/tv/week", url.Values{}); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
