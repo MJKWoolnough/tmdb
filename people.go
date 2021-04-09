@@ -89,3 +89,18 @@ func (t *TMDB) PersonExternalIDs(id int64, params ...option) (*ExternalIDs, erro
 	}
 	return e, nil
 }
+
+// PersonImages contains all of the images for a person
+type PersonImages struct {
+	ID       int64   `json:"id"`
+	Profiles []Image `json:"profiles"`
+}
+
+// PersonImages retreives all of the images for a person
+func (t *TMDB) PersonImages(id int64) (*PersonImages, error) {
+	p := new(PersonImages)
+	if err := t.get(p, fmt.Sprintf("/3/person/%d/images", id), url.Values{}); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
