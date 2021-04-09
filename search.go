@@ -104,31 +104,36 @@ func (t *TMDB) SearchMovie(query string, params ...option) (*SearchMovie, error)
 	return s, nil
 }
 
+// TVOrMovie contains information which could be for either a TV show or a movie
+type TVOrMovie struct {
+	PosterPath       *string  `json:"poster_path"`
+	Adult            bool     `json:"adult"`
+	Overview         string   `json:"overview"`
+	ReleaseDate      string   `json:"release_date"`
+	OriginalTitle    string   `json:"original_title"`
+	GenreIDs         []int64  `json:"genre_ids"`
+	ID               int64    `json:"id"`
+	OriginalLanguage string   `json:"original_language"`
+	Title            string   `json:"title"`
+	BackdropPath     *string  `json:"backdrop_path"`
+	Popularity       float64  `json:"popularity"`
+	VoteCount        int64    `json:"vote_count"`
+	Video            bool     `json:"video"`
+	VoteAverage      float64  `json:"vote_average"`
+	FirstAirDate     string   `json:"first_air_date"`
+	OriginCountry    []string `json:"origin_country"`
+	Name             string   `json:"name"`
+	OriginalName     string   `json:"original_name"`
+}
+
 // PeopleResult stores a single result of a people search
 type PeopleResult struct {
 	ProfilePath *string `json:"profile_path"`
 	Adult       bool    `json:"adult"`
 	ID          int64   `json:"id"`
 	KnownFor    struct {
-		PosterPath       *string  `json:"poster_path"`
-		Adult            bool     `json:"adult"`
-		Overview         string   `json:"overview"`
-		ReleaseDate      string   `json:"release_date"`
-		OriginalTitle    string   `json:"original_title"`
-		GenreIDs         []int64  `json:"genre_ids"`
-		ID               int64    `json:"id"`
-		MediaType        string   `json:"media_type"`
-		OriginalLanguage string   `json:"original_language"`
-		Title            string   `json:"title"`
-		BackdropPath     *string  `json:"backdrop_path"`
-		Popularity       float64  `json:"popularity"`
-		VoteCount        int64    `json:"vote_count"`
-		Video            bool     `json:"video"`
-		VoteAverage      float64  `json:"vote_average"`
-		FirstAirDate     string   `json:"first_air_date"`
-		OriginCountry    []string `json:"origin_country"`
-		Name             string   `json:"name"`
-		OriginalName     string   `json:"original_name"`
+		TVOrMovie
+		MediaType string `json:"media_type"`
 	} `json:"known_for"`
 	Name       string  `json:"name"`
 	Popularity float64 `json:"popularity"`
