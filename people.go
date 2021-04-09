@@ -71,3 +71,12 @@ func (t *TMDB) PersonTVCredits(id int64, params ...option) (*Credits, error) {
 	}
 	return c, nil
 }
+
+// PersonCombinedCredits retreives the movie credits for a person
+func (t *TMDB) PersonCombinedCredits(id int64, params ...option) (*Credits, error) {
+	c := new(Credits)
+	if err := t.get(c, fmt.Sprintf("/3/person/%d/combined_credits", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return c, nil
+}
