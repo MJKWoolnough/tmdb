@@ -1,6 +1,7 @@
 package tmdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 )
@@ -26,6 +27,28 @@ type Person struct {
 func (t *TMDB) PersonDetails(id int64, params ...option) (*Person, error) {
 	p := new(Person)
 	if err := t.get(p, fmt.Sprintf("/3/person/%d", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
+
+// PersonChanges contains informaton about changes made to a person's profile
+type PersonChanges struct {
+	Changes []struct {
+		Key   string `json:"key"`
+		Items []struct {
+			ID            string          `json:"id"`
+			Action        string          `json:"action"`
+			Time          string          `json:"time"`
+			OriginalValue json.RawMessage `json:"original_value"`
+		} `json:"items"`
+	} `json:"changes"`
+}
+
+// PersonChanges retreives the information about changes made to a person's profile
+func (t *TMDB) PersonChanges(id int64, params ...option) (*PersonChanges, error) {
+	p := new(PersonChanges)
+	if err := t.get(p, fmt.Sprintf("/3/person/%d/changes", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
 	return p, nil
