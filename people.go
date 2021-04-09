@@ -80,3 +80,12 @@ func (t *TMDB) PersonCombinedCredits(id int64, params ...option) (*Credits, erro
 	}
 	return c, nil
 }
+
+// PersonExternalIDs retreives the external IDs for a person
+func (t *TMDB) PersonExternalIDs(id int64, params ...option) (*ExternalIDs, error) {
+	e := new(ExternalIDs)
+	if err := t.get(e, fmt.Sprintf("/3/person/%d/external_ids", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return e, nil
+}
