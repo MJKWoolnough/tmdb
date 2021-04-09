@@ -104,3 +104,25 @@ func (t *TMDB) PersonImages(id int64) (*PersonImages, error) {
 	}
 	return p, nil
 }
+
+// PersonTaggedImages contains a list of all tagged images for a person
+type PersonTaggedImages struct {
+	ID int64 `json:"id"`
+	Search
+	Results []struct {
+		Image
+		ID        string    `json:"id"`
+		ImageType string    `json:"image_type"`
+		Media     TVOrMovie `json:"media"`
+		MediaType string    `json:"media_type"`
+	} `json:"results"`
+}
+
+// PersonTaggedImages retreives all of the tagged images for the specified person
+func (t *TMDB) PersonTaggedImages(id int64, params ...option) (*PersonTaggedImages, error) {
+	p := new(PersonTaggedImages)
+	if err := t.get(p, fmt.Sprintf("/3/person/%d/tagged_images", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
