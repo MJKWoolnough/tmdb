@@ -12,6 +12,7 @@ type Person struct {
 	KnownForDepartment string   `json:"known_for_department"`
 	Deathday           *string  `json:"deathday"`
 	ID                 int64    `json:"id"`
+	Name               string   `json:"name"`
 	AKA                []string `json:"also_known_as"`
 	Gender             int64    `json:"gender"`
 	Biography          string   `json:"biography"`
