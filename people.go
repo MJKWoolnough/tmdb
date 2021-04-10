@@ -159,3 +159,12 @@ func (t *TMDB) PersonLatest(params ...option) (*Person, error) {
 	}
 	return p, nil
 }
+
+// PersonPopular retreives the most popular people in the database
+func (t *TMDB) PersonPopular(params ...option) (*SearchPeople, error) {
+	s := new(SearchPeople)
+	if err := t.get(s, "/3/person/popular", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
