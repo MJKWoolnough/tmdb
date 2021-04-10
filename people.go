@@ -127,3 +127,26 @@ func (t *TMDB) PersonTaggedImages(id int64, params ...option) (*PersonTaggedImag
 	}
 	return p, nil
 }
+
+// PersonTranslations contains the translations that have been created for a person
+type PersonTranslations struct {
+	Translations []struct {
+		Language string `json:"iso_639_1"`
+		Country  string `json:"iso_3166_1"`
+		Name     string `json:"name"`
+		Data     struct {
+			Biography string `json:"biography"`
+		} `json:"data"`
+		EnglishName string `json:"english_name"`
+	} `json:"translations"`
+	ID int64 `json:"id"`
+}
+
+// PersonTranslations retreives all of the translations that have been created for a person
+func (t *TMDB) PersonTranslations(id int64, params ...option) (*PersonTranslations, error) {
+	p := new(PersonTranslations)
+	if err := t.get(p, fmt.Sprintf("/3/person/%d/translations", id), url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
