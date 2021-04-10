@@ -150,3 +150,12 @@ func (t *TMDB) PersonTranslations(id int64, params ...option) (*PersonTranslatio
 	}
 	return p, nil
 }
+
+// PersonLatest retreives the most recent person added to the database
+func (t *TMDB) PersonLatest(params ...option) (*Person, error) {
+	p := new(Person)
+	if err := t.get(p, "/3/person/latest", url.Values{}, params...); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
