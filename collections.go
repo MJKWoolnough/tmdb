@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// CollectionDetails stores a collection
+// CollectionDetails stores a collection.
 type CollectionDetails struct {
 	ID           int64         `json:"id"`
 	Name         string        `json:"name"`
@@ -14,16 +14,18 @@ type CollectionDetails struct {
 	Parts        []MovieResult `json:"parts"`
 }
 
-// CollectionDetails retrieves collection details by id
+// CollectionDetails retrieves collection details by id.
 func (t *TMDB) CollectionDetails(id int64, params ...option) (*CollectionDetails, error) {
 	c := new(CollectionDetails)
+
 	if err := t.get(c, fmt.Sprintf("/3/collection/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// Image stores the data of a single image
+// Image stores the data of a single image.
 type Image struct {
 	AspectRatio float64 `json:"aspect_ratio"`
 	FilePath    string  `json:"file_path"`
@@ -34,23 +36,25 @@ type Image struct {
 	Width       int64   `json:"width"`
 }
 
-// CollectionImages stores the images details for a collection
+// CollectionImages stores the images details for a collection.
 type CollectionImages struct {
 	ID        int64 `json:"id"`
 	Backdrops Image `json:"backdrops"`
 	Posters   Image `json:"posters"`
 }
 
-// CollectionImages retrieves collection images details by id
+// CollectionImages retrieves collection images details by id.
 func (t *TMDB) CollectionImages(id int64, params ...option) (*CollectionImages, error) {
 	c := new(CollectionImages)
+
 	if err := t.get(c, fmt.Sprintf("/3/collection/%d/images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// Translations represents collection translations data
+// Translations represents collection translations data.
 type Translations struct {
 	ID           int64 `json:"id"`
 	Translations []struct {
@@ -66,11 +70,13 @@ type Translations struct {
 	} `json:"translations"`
 }
 
-// CollectionTranslations gets the list translations for a collection by ID
+// CollectionTranslations gets the list translations for a collection by ID.
 func (t *TMDB) CollectionTranslations(id int64, params ...option) (*Translations, error) {
 	tr := new(Translations)
+
 	if err := t.get(tr, fmt.Sprintf("/3/collection/%d/translations", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tr, nil
 }

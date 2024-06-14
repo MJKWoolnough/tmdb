@@ -6,7 +6,7 @@ import (
 	"net/url"
 )
 
-// Person contains the information about a person
+// Person contains the information about a person.
 type Person struct {
 	Birthday           *string  `json:"birthday"`
 	KnownForDepartment string   `json:"known_for_department"`
@@ -24,16 +24,18 @@ type Person struct {
 	Homepage           string   `json:"homepage"`
 }
 
-// PersonDetails retreives the details of the specified person
+// PersonDetails retreives the details of the specified person.
 func (t *TMDB) PersonDetails(id int64, params ...option) (*Person, error) {
 	p := new(Person)
+
 	if err := t.get(p, fmt.Sprintf("/3/person/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonChanges contains informaton about changes made to a person's profile
+// PersonChanges contains informaton about changes made to a person's profile.
 type PersonChanges struct {
 	Changes []struct {
 		Key   string `json:"key"`
@@ -46,67 +48,79 @@ type PersonChanges struct {
 	} `json:"changes"`
 }
 
-// PersonChanges retreives the information about changes made to a person's profile
+// PersonChanges retreives the information about changes made to a person's profile.
 func (t *TMDB) PersonChanges(id int64, params ...option) (*PersonChanges, error) {
 	p := new(PersonChanges)
+
 	if err := t.get(p, fmt.Sprintf("/3/person/%d/changes", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonMovieCredits retreives the movie credits for a person
+// PersonMovieCredits retreives the movie credits for a person.
 func (t *TMDB) PersonMovieCredits(id int64, params ...option) (*Credits, error) {
 	c := new(Credits)
+
 	if err := t.get(c, fmt.Sprintf("/3/person/%d/movie_credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// PersonTVCredits retreives the movie credits for a person
+// PersonTVCredits retreives the movie credits for a person.
 func (t *TMDB) PersonTVCredits(id int64, params ...option) (*Credits, error) {
 	c := new(Credits)
+
 	if err := t.get(c, fmt.Sprintf("/3/person/%d/tv_credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// PersonCombinedCredits retreives the movie credits for a person
+// PersonCombinedCredits retreives the movie credits for a person.
 func (t *TMDB) PersonCombinedCredits(id int64, params ...option) (*Credits, error) {
 	c := new(Credits)
+
 	if err := t.get(c, fmt.Sprintf("/3/person/%d/combined_credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// PersonExternalIDs retreives the external IDs for a person
+// PersonExternalIDs retreives the external IDs for a person.
 func (t *TMDB) PersonExternalIDs(id int64, params ...option) (*ExternalIDs, error) {
 	e := new(ExternalIDs)
+
 	if err := t.get(e, fmt.Sprintf("/3/person/%d/external_ids", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return e, nil
 }
 
-// PersonImages contains all of the images for a person
+// PersonImages contains all of the images for a person.
 type PersonImages struct {
 	ID       int64   `json:"id"`
 	Profiles []Image `json:"profiles"`
 }
 
-// PersonImages retreives all of the images for a person
+// PersonImages retreives all of the images for a person.
 func (t *TMDB) PersonImages(id int64) (*PersonImages, error) {
 	p := new(PersonImages)
+
 	if err := t.get(p, fmt.Sprintf("/3/person/%d/images", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonTaggedImages contains a list of all tagged images for a person
+// PersonTaggedImages contains a list of all tagged images for a person.
 type PersonTaggedImages struct {
 	ID int64 `json:"id"`
 	Search
@@ -119,16 +133,18 @@ type PersonTaggedImages struct {
 	} `json:"results"`
 }
 
-// PersonTaggedImages retreives all of the tagged images for the specified person
+// PersonTaggedImages retreives all of the tagged images for the specified person.
 func (t *TMDB) PersonTaggedImages(id int64, params ...option) (*PersonTaggedImages, error) {
 	p := new(PersonTaggedImages)
+
 	if err := t.get(p, fmt.Sprintf("/3/person/%d/tagged_images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonTranslations contains the translations that have been created for a person
+// PersonTranslations contains the translations that have been created for a person.
 type PersonTranslations struct {
 	Translations []struct {
 		Language string `json:"iso_639_1"`
@@ -142,29 +158,35 @@ type PersonTranslations struct {
 	ID int64 `json:"id"`
 }
 
-// PersonTranslations retreives all of the translations that have been created for a person
+// PersonTranslations retreives all of the translations that have been created for a person.
 func (t *TMDB) PersonTranslations(id int64, params ...option) (*PersonTranslations, error) {
 	p := new(PersonTranslations)
+
 	if err := t.get(p, fmt.Sprintf("/3/person/%d/translations", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonLatest retreives the most recent person added to the database
+// PersonLatest retreives the most recent person added to the database.
 func (t *TMDB) PersonLatest(params ...option) (*Person, error) {
 	p := new(Person)
+
 	if err := t.get(p, "/3/person/latest", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
-// PersonPopular retreives the most popular people in the database
+// PersonPopular retreives the most popular people in the database.
 func (t *TMDB) PersonPopular(params ...option) (*SearchPeople, error) {
 	s := new(SearchPeople)
+
 	if err := t.get(s, "/3/person/popular", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }

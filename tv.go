@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// Episode contains basic inforamtion for an episode
+// Episode contains basic inforamtion for an episode.
 type Episode struct {
 	AirDate        string  `json:"air_date"`
 	EpisodeNumber  int64   `json:"episode_number"`
@@ -19,7 +19,7 @@ type Episode struct {
 	VoteCount      int64   `json:"vote_count"`
 }
 
-// TVShow contains all of the information about a TV Show
+// TVShow contains all of the information about a TV Show.
 type TVShow struct {
 	BackdropPath *string `json:"backdrop_path"`
 	CreatedBy    []struct {
@@ -70,16 +70,18 @@ type TVShow struct {
 	VoteCount       int64     `json:"vote_count"`
 }
 
-// TVShow retrieves the details of a TV Show
+// TVShow retrieves the details of a TV Show.
 func (t *TMDB) TVShow(id int64, params ...option) (*TVShow, error) {
 	tv := new(TVShow)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVAggregateCredits contains the aggregated credits for a TV show
+// TVAggregateCredits contains the aggregated credits for a TV show.
 type TVAggregateCredits struct {
 	Cast []struct {
 		CreditShared
@@ -102,34 +104,40 @@ type TVAggregateCredits struct {
 	ID int64 `json:"id"`
 }
 
-// TVAggregateCredits retrieves the aggregated credits for a TV show
+// TVAggregateCredits retrieves the aggregated credits for a TV show.
 func (t *TMDB) TVAggregateCredits(id int64, params ...option) (*TVAggregateCredits, error) {
 	tv := new(TVAggregateCredits)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/aggregate_credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVAlternativeTitles retrieves the alternative titles for a TV show
+// TVAlternativeTitles retrieves the alternative titles for a TV show.
 func (t *TMDB) TVAlternativeTitles(id int64, params ...option) (*AlternativeTitles, error) {
 	a := new(AlternativeTitles)
+
 	if err := t.get(a, fmt.Sprintf("/3/tv/%d/alternative_titles", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return a, nil
 }
 
-// TVChanges retrieves the list of changes for a TV show
+// TVChanges retrieves the list of changes for a TV show.
 func (t *TMDB) TVChanges(id int64, params ...option) (*EntryChanges, error) {
 	e := new(EntryChanges)
+
 	if err := t.get(e, fmt.Sprintf("/3/tv/%d/changes", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return e, nil
 }
 
-// TVContentRatings containts the content ratings for a TV show
+// TVContentRatings contains the content ratings for a TV show.
 type TVContentRatings struct {
 	Results []struct {
 		Country string `json:"iso_3166_1"`
@@ -138,25 +146,29 @@ type TVContentRatings struct {
 	ID int64 `json:"id"`
 }
 
-// TVContentRatings retrieves the content ratings for a TV show
+// TVContentRatings retrieves the content ratings for a TV show.
 func (t *TMDB) TVContentRatings(id int64, params ...option) (*TVContentRatings, error) {
 	tv := new(TVContentRatings)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/content_ratings", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVCredits retrieves the credits for a TV show
+// TVCredits retrieves the credits for a TV show.
 func (t *TMDB) TVCredits(id int64, params ...option) (*Credits, error) {
 	c := new(Credits)
+
 	if err := t.get(c, fmt.Sprintf("/3/tv/%d/credits", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }
 
-// TVEpisodeGroups contains all of the episode groups for a TV show
+// TVEpisodeGroups contains all of the episode groups for a TV show.
 type TVEpisodeGroups struct {
 	Results []struct {
 		Description  string             `json:"description"`
@@ -169,16 +181,18 @@ type TVEpisodeGroups struct {
 	ID int64 `json:"id"`
 }
 
-// TVEpisodeGroups retrieves all of the episode groups for a TV show
+// TVEpisodeGroups retrieves all of the episode groups for a TV show.
 func (t *TMDB) TVEpisodeGroups(id int64, params ...option) (*TVEpisodeGroups, error) {
 	tv := new(TVEpisodeGroups)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/episode_groups", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// ExternalIDs contains all known external IDs for a TV show
+// ExternalIDs contains all known external IDs for a TV show.
 type ExternalIDs struct {
 	IMDB        *string `json:"imdb_id"`
 	FreebaseMID *string `json:"freebase_mid"`
@@ -191,52 +205,62 @@ type ExternalIDs struct {
 	ID          int64   `json:"id"`
 }
 
-// TVExternalIDs retrieves all of the external ids for a TV show
+// TVExternalIDs retrieves all of the external ids for a TV show.
 func (t *TMDB) TVExternalIDs(id int64, params ...option) (*ExternalIDs, error) {
 	e := new(ExternalIDs)
+
 	if err := t.get(e, fmt.Sprintf("/3/tv/%d/external_ids", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return e, nil
 }
 
-// TVImages retrieves all of the images for a TV show
+// TVImages retrieves all of the images for a TV show.
 func (t *TMDB) TVImages(id int64, params ...option) (*Images, error) {
 	i := new(Images)
+
 	if err := t.get(i, fmt.Sprintf("/3/tv/%d/images", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return i, nil
 }
 
-// TVKeywords retrieves all of the keywords for a TV show
+// TVKeywords retrieves all of the keywords for a TV show.
 func (t *TMDB) TVKeywords(id int64) (*Keywords, error) {
 	k := new(Keywords)
+
 	if err := t.get(k, fmt.Sprintf("/3/tv/%d/keywords", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return k, nil
 }
 
-// TVRecommendations retrieves all of the recommendations for a TV show
+// TVRecommendations retrieves all of the recommendations for a TV show.
 func (t *TMDB) TVRecommendations(id int64, params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, fmt.Sprintf("/3/tv/%d/recommendations", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }
 
-// TVReviews retrieves reviews for a TV show
+// TVReviews retrieves reviews for a TV show.
 func (t *TMDB) TVReviews(id int64, params ...option) (*Reviews, error) {
 	r := new(Reviews)
+
 	if err := t.get(r, fmt.Sprintf("/3/tv/%d/reviews", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return r, nil
 }
 
-// TVScreenedTheatrically contains all of the episodes of a TV show that were screened theatrically
+// TVScreenedTheatrically contains all of the episodes of a TV show that were screened theatrically.
 type TVScreenedTheatrically struct {
 	ID      int64 `json:"id"`
 	Results []struct {
@@ -246,92 +270,112 @@ type TVScreenedTheatrically struct {
 	} `json:"results"`
 }
 
-// TVScreenedTheatrically retrieves all of the episodes of a TV show that were screened theatrically
+// TVScreenedTheatrically retrieves all of the episodes of a TV show that were screened theatrically.
 func (t *TMDB) TVScreenedTheatrically(id int64) (*TVScreenedTheatrically, error) {
 	tv := new(TVScreenedTheatrically)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/screen_theatrically", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVSimilar retrieves all of the similar TV shows
+// TVSimilar retrieves all of the similar TV shows.
 func (t *TMDB) TVSimilar(id int64, params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, fmt.Sprintf("/3/tv/%d/similar", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }
 
-// TVTranslations retrieves all of the translations that exist for a show
+// TVTranslations retrieves all of the translations that exist for a show.
 func (t *TMDB) TVTranslations(id int64) (*Translations, error) {
 	tv := new(Translations)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/%d/translations", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVVideos retrieves all of the videos for a TV shows
+// TVVideos retrieves all of the videos for a TV shows.
 func (t *TMDB) TVVideos(id int64, params ...option) (*Videos, error) {
 	v := new(Videos)
+
 	if err := t.get(v, fmt.Sprintf("/3/tv/%d/videos", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return v, nil
 }
 
-// TVWatchProviders retrieves all of the watch providers that exist for a show
+// TVWatchProviders retrieves all of the watch providers that exist for a show.
 func (t *TMDB) TVWatchProviders(id int64) (*WatchProviders, error) {
 	w := new(WatchProviders)
+
 	if err := t.get(w, fmt.Sprintf("/3/tv/%d/watch_providers", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return w, nil
 }
 
-// TVLatest retrieves the latest TV show added to the database
+// TVLatest retrieves the latest TV show added to the database.
 func (t *TMDB) TVLatest() (*TVShow, error) {
 	tv := new(TVShow)
+
 	if err := t.get(tv, "/3/tv/latest", url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }
 
-// TVAiringToday retrieves the TV show airing today
+// TVAiringToday retrieves the TV show airing today.
 func (t *TMDB) TVAiringToday(params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, "/3/tv/airing_today", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }
 
-// TVOnTheAir retrieves TV show that are airing within the next 7 days
+// TVOnTheAir retrieves TV show that are airing within the next 7 days.
 func (t *TMDB) TVOnTheAir(params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, "/3/tv/on_the_air", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }
 
-// TVPopular retrieves a list of popular TV shows
+// TVPopular retrieves a list of popular TV shows.
 func (t *TMDB) TVPopular(params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, "/3/tv/popular", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }
 
-// TVTopRated retrieves a list of the top rated TV shows
+// TVTopRated retrieves a list of the top rated TV shows.
 func (t *TMDB) TVTopRated(params ...option) (*SearchTV, error) {
 	s := new(SearchTV)
+
 	if err := t.get(s, "/3/tv/top_rated", url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return s, nil
 }

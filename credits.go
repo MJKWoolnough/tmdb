@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// Credit represents a movie or TV credit details
+// Credit represents a movie or TV credit details.
 type Credit struct {
 	CreditType string `json:"credit_type"`
 	Department string `json:"department"`
@@ -37,11 +37,13 @@ type Credit struct {
 	} `json:"person"`
 }
 
-// Credit retrieves a movie or TV credit
+// Credit retrieves a movie or TV credit.
 func (t *TMDB) Credit(id int64) (*Credit, error) {
 	c := new(Credit)
+
 	if err := t.get(c, fmt.Sprintf("/3/credit/%d", id), url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return c, nil
 }

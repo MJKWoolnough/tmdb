@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// TVEpisodeGroup contains the details for an episode groups for a TV show
+// TVEpisodeGroup contains the details for an episode groups for a TV show.
 type TVEpisodeGroup struct {
 	Description  string `json:"description"`
 	EpisodeCount int64  `json:"episode_count"`
@@ -26,11 +26,13 @@ type TVEpisodeGroup struct {
 	Type    int64             `json:"type"`
 }
 
-// TVEpisodeGroup retrieves the details for an episode group for a TV show
+// TVEpisodeGroup retrieves the details for an episode group for a TV show.
 func (t *TMDB) TVEpisodeGroup(id int64, params ...option) (*TVEpisodeGroup, error) {
 	tv := new(TVEpisodeGroup)
+
 	if err := t.get(tv, fmt.Sprintf("/3/tv/episode_group/%d", id), url.Values{}, params...); err != nil {
 		return nil, err
 	}
+
 	return tv, nil
 }

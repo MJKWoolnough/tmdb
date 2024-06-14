@@ -2,7 +2,7 @@ package tmdb
 
 import "net/url"
 
-// Review contains a review for a movie or TV show
+// Review contains a review for a movie or TV show.
 type Review struct {
 	ID            string `json:"id"`
 	Author        string `json:"author"`
@@ -21,11 +21,13 @@ type Review struct {
 	URL        string `json:"url"`
 }
 
-// Review retrieves information about a specific review
+// Review retrieves information about a specific review.
 func (t *TMDB) Review(id string) (*Review, error) {
 	r := new(Review)
+
 	if err := t.get(r, "/3/review/"+id, url.Values{}); err != nil {
 		return nil, err
 	}
+
 	return r, nil
 }
